@@ -1,0 +1,15 @@
+body {
+  width: 95vw;
+  height: 95vh;
+  color: red;
+}
+
+#svg {
+  display: block;
+  margin: auto;
+  font-family: 'Quicksand', sans-serif;
+  /*height: 95vw;*/
+  /*width: 95vh;*/
+  padding-top: 5px;
+  /*overflow: visible*/
+}
