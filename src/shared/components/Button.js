@@ -39,6 +39,8 @@ class Button extends Component {
             font-family: ${style.fontFamily};
             cursor: ${style.cursor};
             background: ${this.state.hover ? bg[1]: bg[0]};
+            width: 100px;
+            margin: 5px;
           }
           button:focus {outline:0;}
       `}</style>

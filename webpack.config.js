@@ -16,14 +16,14 @@ var browserConfig = {
     rules: [
       { test: /\.(js)$/, use: 'babel-loader' }
     ]
-  },
-  /*
+  },  
   plugins: [
+  /*
     new webpack.DefinePlugin({
       __isBrowser__: "true"
     })
-  ]
-  */
+    */
+  ],
   target: 'web',
   mode: 'development'
 }
@@ -42,9 +42,13 @@ var serverConfig = {
       { test: /\.(js)$/, use: 'babel-loader' },
     ]
   },
-  
   plugins: [
     new Dotenv()
+    /*
+    new webpack.DefinePlugin({
+      __isBrowser__: "false"
+    })
+    */
   ],
   target: 'node',
   mode: 'development'

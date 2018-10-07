@@ -1,18 +1,16 @@
-import React, { Component } from 'react';
-import draw from '../helper/draw';
+import React, { Component } from "react";
+import draw from "../helper/draw";
 
 class Chart extends Component {
-  
-  componentDidUpdate(prevProps){
-    if (this.props.data !== prevProps.data) {      
-      //const values = createCircles(this.props.data.values, valuesRadius);
-      draw(this.props.data.values, this.props.data.csv);
-    }
-  }
-  
-  render () {
-    return <svg id="svg"></svg>
-  }
+	constructor(props) {
+		super(props);
+		//d = window.__INITIAL_DATA__ || props.staticContext.data
+		//this.state = {data: d}
+	}
+
+	render() {
+		return <svg id="svg"></svg>;
+	}
 }
 
-export default Chart
+export default Chart;

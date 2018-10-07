@@ -2,45 +2,57 @@
 import express from "express";
 import cors from "cors";
 import { renderToString } from "react-dom/server";
-import App from '../shared/App';
-import React from 'react';
+import React from "react";
+import App from "../shared/App";
 import serialize from "serialize-javascript";
-import mongoose from 'mongoose';
-import { flushToHTML } from 'styled-jsx/server'
-
-import Test from './models/test';
-import csv from './models/csv';
-import Value from './models/Values';
+import mongoose from "mongoose";
+import { flushToHTML } from "styled-jsx/server";
+import { StaticRouter, matchPath } from "react-router-dom";
+import routes from "../shared/routes";
+import getInitData from "../shared/getInitData";
+import csv from "./models/csv";
 
 const app = express();
 const port = process.env.PORT;
 
-const uri = 'mongodb://' + process.env.USER + ':' + process.env.PASS + '@ds113019.mlab.com:13019/team-plan';
+const uri =
+  "mongodb://" +
+  process.env.USER +
+  ":" +
+  process.env.PASS +
+  "@ds113019.mlab.com:13019/team-plan";
 mongoose.connect(uri, { useNewUrlParser: true });
 const db = mongoose.connection;
 
-// We're going to serve up the public
-// folder since that's where our
-// client bundle.js file will end up.
-app.use(express.static("public"))
+app.use(cors());
+app.use(express.static("public"));
 
 app.get("*", (req, res, next) => {
+  const activeRoute = routes.find(route => matchPath(req.url, route)) || {};
 
-  Value.find().select().exec((err, values) => {
-    if(err) console.err;
-    csv.find().select().exec((err, doc) => {
-      if(err) console.err;
-      const data = {csv: doc, values: values};
+  const promise = activeRoute.getInitialData
+    ? activeRoute.getInitialData()
+    : Promise.resolve();
+  
+  promise
+    .then(data => {
+      const context = {data};
+
       const markup = renderToString(
-      <App data={data}/>
+        <StaticRouter location={req.url} context={{data}}>
+          <App />
+        </StaticRouter>
       );
       const styles = flushToHTML();
+      
       res.send(`
           <!DOCTYPE html>
           <html>
             <head>
               <title>Team Plan</title>
               <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+              <script src="/bundle.js" defer></script>
+              <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
               <style>
                 body {
                 width: 95vw;
@@ -60,16 +72,16 @@ app.get("*", (req, res, next) => {
 
             <body>
               <div id="root">${markup}</div>
-              <script src="/bundle.js" defer></script>
-              <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
             </body>
           </html>
-        `)
-
-      })
+        `);
     })
+    .catch(next);
+    
 });
 
 app.listen(port, () => {
-  console.log(`Server is listening on port: ${port}`)
-})
+  console.log(`Server is listening on port: ${port}`);
+});
+
+/*<!--<script>window.__INITIAL_DATA__ = ${serialize(data)}</script>-->*/

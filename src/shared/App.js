@@ -1,51 +1,62 @@
-import React, { Component } from 'react';
-import Chart from './components/Chart';
-import Button from './components/Button';
-import { saveSvgAsPng } from 'save-svg-as-png';
-//import saveSvgAsPng from './helper/saveAsPng';
-
-/*
-  // Set-up the export button
-  d3.select('#saveButton').on('click', function(){
-    saveSvgAsPng(document.getElementById("svg"), "diagram.png", {scale: 8, backgroundColor: 'white'});
-  });
-  */
+import React, { Component } from "react";
+import Chart from "./components/Chart";
+import Button from "./components/Button";
+import Test from "./components/Test";
+import { saveSvgAsPng } from "save-svg-as-png";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import routes from "./routes";
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       data: {
         csv: [],
         values: []
       }
     };
-    this.handlePngClick=this.handlePngClick.bind(this);
+    this.handlePngClick = this.handlePngClick.bind(this);
   }
-  
-  handlePngClick(){
-    console.log(saveSvgAsPng);
-    saveSvgAsPng(document.getElementById("svg"), "diagram.png", {scale: 8, backgroundColor: 'white'});
+
+  handlePngClick() {
+    saveSvgAsPng(document.getElementById("svg"), "diagram.png", {
+      scale: 8,
+      backgroundColor: "white"
+    });
   }
-  
-  componentDidMount(){    
-    const data = this.props.data;
-    this.setState({data: data});
-  }
-  
+
   render() {
-    const style={
+    const style = {
       width: "95vw",
       height: "95vw"
-    }
+    };
+
+    /*
     return (
-      <div style={style}>
-        <h1>Nav goes here</h1>
-        <Button id="saveButton" click={this.handlePngClick}>Export as PNG</Button>
-        <Chart data={this.state.data} />
-      </div>
+        <div style={style}>          
+          <Button>Edit</Button>
+          <Button id="saveButton" click={this.handlePngClick}>Export as PNG</Button>
+          <Chart data={this.state.data} />
+          <Test>Info goes here</Test>
+        </div>
     )
+    */
+
+    return (
+      <div>
+      <Button><Link to="/edit">Edit</Link></Button>
+      <Button id="saveButton" click={this.handlePngClick}>Export as PNG</Button>
+        {routes.map(({ path, exact, component: C, ...rest }) => (
+          <Route
+            key={path}
+            path={path}
+            exact={exact}
+            render={props => <C {...props} {...rest} />}
+          />
+        ))}
+      </div>
+    );
   }
 }
 
-export default App
+export default App;
