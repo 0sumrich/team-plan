@@ -7,11 +7,12 @@ const routes =  [
     path: '/',
     exact: true,
     component: Chart,
-    getInitialData: () => getInitData()
+    getInitialData: getInitData
   },
   {
     path: '/test',
-    component: Test
+    component: Test,
+    children: 'Hello Test Page'
   }
 ]
 

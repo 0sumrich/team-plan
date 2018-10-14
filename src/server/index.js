@@ -9,8 +9,8 @@ import mongoose from "mongoose";
 import { flushToHTML } from "styled-jsx/server";
 import { StaticRouter, matchPath } from "react-router-dom";
 import routes from "../shared/routes";
-import getInitData from "../shared/getInitData";
-import csv from "./models/csv";
+//import getInitData from "../shared/getInitData";
+//import csv from "./models/csv";
 
 const app = express();
 const port = process.env.PORT;
@@ -28,18 +28,19 @@ app.use(cors());
 app.use(express.static("public"));
 
 app.get("*", (req, res, next) => {
+  
   const activeRoute = routes.find(route => matchPath(req.url, route)) || {};
-
+  
   const promise = activeRoute.getInitialData
     ? activeRoute.getInitialData()
     : Promise.resolve();
-  
+
   promise
     .then(data => {
       const context = {data};
 
       const markup = renderToString(
-        <StaticRouter location={req.url} context={{data}}>
+        <StaticRouter location={req.url} context={{}}>
           <App />
         </StaticRouter>
       );
@@ -76,8 +77,7 @@ app.get("*", (req, res, next) => {
           </html>
         `);
     })
-    .catch(next);
-    
+    .catch(next); 
 });
 
 app.listen(port, () => {

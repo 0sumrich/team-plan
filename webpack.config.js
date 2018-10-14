@@ -18,11 +18,9 @@ var browserConfig = {
     ]
   },  
   plugins: [
-  /*
     new webpack.DefinePlugin({
-      __isBrowser__: "true"
+      IS_BROWSER: JSON.stringify(true)
     })
-    */
   ],
   target: 'web',
   mode: 'development'
@@ -43,12 +41,10 @@ var serverConfig = {
     ]
   },
   plugins: [
-    new Dotenv()
-    /*
+    new Dotenv(),
     new webpack.DefinePlugin({
-      __isBrowser__: "false"
+      IS_BROWSER: JSON.stringify(false)
     })
-    */
   ],
   target: 'node',
   mode: 'development'

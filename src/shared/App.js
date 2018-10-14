@@ -44,7 +44,8 @@ class App extends Component {
 
     return (
       <div>
-      <Button><Link to="/edit">Edit</Link></Button>
+      <Button><Link to="/test">Test</Link></Button>
+      <Button><Link to="/">Home</Link></Button>
       <Button id="saveButton" click={this.handlePngClick}>Export as PNG</Button>
         {routes.map(({ path, exact, component: C, ...rest }) => (
           <Route
