@@ -46,6 +46,9 @@ var serverConfig = {
       IS_BROWSER: JSON.stringify(false)
     })
   ],
+  devServer: {
+    historyApiFallback: true
+  },
   target: 'node',
   mode: 'development'
 }

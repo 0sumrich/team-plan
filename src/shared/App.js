@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import Chart from "./components/Chart";
 import Button from "./components/Button";
 import Test from "./components/Test";
+import NoMatch from './components/NoMatch';
 import { saveSvgAsPng } from "save-svg-as-png";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import routes from "./routes";
 
 class App extends Component {
@@ -31,30 +32,19 @@ class App extends Component {
       height: "95vw"
     };
 
-    /*
-    return (
-        <div style={style}>          
-          <Button>Edit</Button>
-          <Button id="saveButton" click={this.handlePngClick}>Export as PNG</Button>
-          <Chart data={this.state.data} />
-          <Test>Info goes here</Test>
-        </div>
-    )
-    */
-
     return (
       <div>
-      <Button><Link to="/test">Test</Link></Button>
-      <Button><Link to="/">Home</Link></Button>
-      <Button id="saveButton" click={this.handlePngClick}>Export as PNG</Button>
-        {routes.map(({ path, exact, component: C, ...rest }) => (
-          <Route
-            key={path}
-            path={path}
-            exact={exact}
-            render={props => <C {...props} {...rest} />}
-          />
-        ))}
+        <Button><Link to="/test">Test</Link></Button>
+        <Button><Link to="/">Home</Link></Button>
+        <Button id="saveButton" click={this.handlePngClick}>Export as PNG</Button>
+        <Switch>
+          {routes.map(({ path, exact, component: Component, ...rest }) => (
+            <Route key={path} path={path} exact={exact} render={(props) => (
+              <Component {...props} {...rest} />
+            )} />
+          ))}
+          <Route render={(props) => <NoMatch {...props} /> } />
+        </Switch>
       </div>
     );
   }

@@ -24,34 +24,41 @@ const uri =
 mongoose.connect(uri, { useNewUrlParser: true });
 const db = mongoose.connection;
 
-app.use(cors());
+//app.use(cors());
 app.use(express.static("public"));
 
 app.get("*", (req, res, next) => {
-  
-  const activeRoute = routes.find(route => matchPath(req.url, route)) || {};
-  
+
+  const activeRoute = routes.find(route => matchPath(req.path, route)) || {};
+
   const promise = activeRoute.getInitialData
     ? activeRoute.getInitialData()
     : Promise.resolve();
 
-  promise
-    .then(data => {
-      const context = {data};
+  promise.then(data => {
+    const context = { data };
+    const markup = renderToString(
+      <StaticRouter location={req.path} context={context}>
+        <App />
+      </StaticRouter>
+    );
 
-      const markup = renderToString(
-        <StaticRouter location={req.url} context={{}}>
-          <App />
-        </StaticRouter>
-      );
+    if (context.url) {
+      console.log(context.url);
+      res.writeHead(301, {
+        Location: context.url
+      });
+      res.end();
+    } else {
       const styles = flushToHTML();
-      
-      res.send(`
+      console.log(context);
+      res.write(`
           <!DOCTYPE html>
           <html>
             <head>
               <title>Team Plan</title>
               <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+              <link rel="icon" href="favicon.ico">
               <script src="/bundle.js" defer></script>
               <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
               <style>
@@ -70,14 +77,14 @@ app.get("*", (req, res, next) => {
               </style>
               ${styles}
             </head>
-
             <body>
               <div id="root">${markup}</div>
             </body>
           </html>
         `);
-    })
-    .catch(next); 
+      res.end();
+    }
+  });
 });
 
 app.listen(port, () => {
