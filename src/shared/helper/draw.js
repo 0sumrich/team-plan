@@ -11,7 +11,6 @@ import {
   margin,
   scheme
 } from '../constants/constants';
-import {pie} from '../constants/lets';
   
 function draw(valuesArr, csv) {
   
@@ -102,7 +101,7 @@ function draw(valuesArr, csv) {
     const height = text.node().getBBox().height-12;
     text.attr('transform', 'translate(0, ' + (height/2)/-1 +' )');
   })
-  const data = sortData(csv, pie);
+  const data = sortData(csv);
   build(data, svg);
 }
 
