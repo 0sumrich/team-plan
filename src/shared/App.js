@@ -3,8 +3,9 @@ import Chart from "./components/Chart";
 import Button from "./components/Button";
 import Test from "./components/Test";
 import NoMatch from './components/NoMatch';
+import Nav from './components/Nav';
 import { saveSvgAsPng } from "save-svg-as-png";
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import routes from "./routes";
 
 class App extends Component {
@@ -34,8 +35,9 @@ class App extends Component {
 
     return (
       <div>
-        <Button><Link to="/test">Test</Link></Button>
-        <Button><Link to="/">Home</Link></Button>
+        <Nav dest="/test">Test</Nav>
+        <Nav dest="/edit">Edit</Nav>
+        <Nav dest="/">Home</Nav>
         <Button id="saveButton" click={this.handlePngClick}>Export as PNG</Button>
         <Switch>
           {routes.map(({ path, exact, component: Component, ...rest }) => (

@@ -1,11 +1,12 @@
 import * as d3 from "d3";
 import arc from './arc';
-//import {pie} from '../constants/lets';
+import getRings from './getRings';
+import getObjectives from  './getObjectives';
 
 export default function sortData(data){
-  //adding id's used later to get text path, and tidying stray spaces.
+
   let pie = d3.pie().value([1]).padAngle([0.005]).sort(null);
-  
+  console.log(getRings);
   data.forEach((o, i) => {
     if(o.team[o.team.length-1]==" "){
       const str = o.team.slice(0, -1);
@@ -13,9 +14,11 @@ export default function sortData(data){
     }
     return o
   });  
-  const rings = data.map(o => o.team).filter((v, i, a) => a.indexOf(v) === i);
-  const objectives = pie(data.filter(o => o.team.length<1));
-  console.log(objectives);
+  //const rings = data.map(o => o.team).filter((v, i, a) => a.indexOf(v) === i);
+  const rings = getRings(data);
+  //const objectives = pie(data.filter(o => o.team.length<1));
+  const objectives = pie(getObjectives(data));
+  
   const angles = objectives.map(o => {return {start: o.startAngle, end: o.endAngle}});
   //add the angles from the objectives, then flatten out the array
   let d = objectives.map((obj,index) => {

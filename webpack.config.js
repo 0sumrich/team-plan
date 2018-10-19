@@ -40,6 +40,11 @@ var serverConfig = {
       { test: /\.(js)$/, use: 'babel-loader' },
     ]
   },
+  resolve: {
+    alias: {
+      'node-fetch$': "node-fetch/lib/index.js"
+    }
+  },
   plugins: [
     new Dotenv(),
     new webpack.DefinePlugin({
