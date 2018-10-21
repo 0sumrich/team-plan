@@ -5,7 +5,6 @@ import * as d3 from "d3";
 class Chart extends Component {
 
 	componentDidMount() {
-		console.log(this.props.data);
 		const data = this.props.data;
 		draw(data.values, data.csv)
 	}
