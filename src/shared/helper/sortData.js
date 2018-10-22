@@ -6,7 +6,6 @@ import getObjectives from  './getObjectives';
 export default function sortData(data){
 
   let pie = d3.pie().value([1]).padAngle([0.005]).sort(null);
-  console.log(getRings);
   data.forEach((o, i) => {
     if(o.team[o.team.length-1]==" "){
       const str = o.team.slice(0, -1);
@@ -14,9 +13,8 @@ export default function sortData(data){
     }
     return o
   });  
-  //const rings = data.map(o => o.team).filter((v, i, a) => a.indexOf(v) === i);
-  const rings = getRings(data);
-  //const objectives = pie(data.filter(o => o.team.length<1));
+
+  const rings = getRings(data);  
   const objectives = pie(getObjectives(data));
   
   const angles = objectives.map(o => {return {start: o.startAngle, end: o.endAngle}});
@@ -34,7 +32,7 @@ export default function sortData(data){
     }
     return arr;
   }).reduce((a, b) => a.concat(b), []).reduce((a, b) => a.concat(b), []);
-  //console.log(d);
+  
   let res=[objectives];
   for(let i=1;i<rings.length;i++){
     res.push(d.filter(o => o.data.team==rings[i]));
