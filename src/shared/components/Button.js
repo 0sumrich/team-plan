@@ -4,7 +4,8 @@ class Button extends Component {
   constructor(props){
     super(props);
     this.state = {
-      hover: false
+      hover: false,
+      active: false
     }
   }
   hover() {
@@ -13,12 +14,25 @@ class Button extends Component {
     });
   };
 
+  handleClick(e){
+    //e.preventDefault();
+    if(this.props.form){
+      e.preventDefault();
+    }
+    this.setState(prevState => {
+      return {active: !prevState.active}
+    });
+    if(this.props.handleClick) {
+      this.props.handleClick(e)
+    }
+  }
+
   render() {
     const {
       style,
-      click,
       bg,
       id,
+      form,
       children
     } = this.props;   
  
@@ -27,7 +41,7 @@ class Button extends Component {
         <button
         className="btn"
         id={id}
-        onClick={click}
+        onClick={e => this.handleClick(e)}
         onMouseEnter={e => this.hover(e)}
         onMouseLeave={e => this.hover(e)}
         >{children}</button>
@@ -38,7 +52,7 @@ class Button extends Component {
             padding: ${style.padding};
             font-family: ${style.fontFamily};
             cursor: ${style.cursor};
-            background: ${this.state.hover ? bg[1]: bg[0]};
+            background: ${this.state.hover||this.state.active ? bg[1]: bg[0]};
             width: 100px;
             margin: 5px;
           }
