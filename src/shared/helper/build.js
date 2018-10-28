@@ -13,6 +13,10 @@ import {
 import arc from './arc';
 import toBool from './toBool';
 
+function darker(col){
+  return d3.color(col).darker([2]) + "";
+}
+
 export default function build(d, svg){
   
   const objectives = d[0];
@@ -63,6 +67,7 @@ export default function build(d, svg){
     .attr('id', d => "seg" + d.data._id)
     .attr("d", arc(radii, i))
     .style("fill",(d)=> {
+      //"5ba62311315a8a0f7091a896" = extend opening hours in 2 phases
       const complete = toBool(d.data.complete);
       const color = d3.color(scheme[i+1]);
       if(complete) {
@@ -83,7 +88,7 @@ export default function build(d, svg){
     .style('fill', d => {
       const complete = toBool(d.data.complete);
       if (complete) 
-        return d3.color(scheme[i+1]).darker([2]) + "";
+        return darker(scheme[i+1]);
       else
         return 'black';
     })
@@ -95,7 +100,7 @@ export default function build(d, svg){
         return res;
     })
     .each(function(d){
-        chop(this, d, radii[i], d3.color(scheme[i+1]).darker([2]) + "");  
+        chop(this, d, radii[i], darker(scheme[i+1]));  
     })
   }
 }
