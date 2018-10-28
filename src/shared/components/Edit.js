@@ -26,7 +26,7 @@ class Edit extends Component {
 		};
 		this.fetchData = this.fetchData.bind(this);
 		this.handleEditClick = this.handleEditClick.bind(this);
-		this.handleChangeClick = this.handleChangeClick.bind(this);
+		this.handleUpdateClick = this.handleUpdateClick.bind(this);
 	}
 
 	fetchData() {
@@ -40,12 +40,13 @@ class Edit extends Component {
 			.then(data => this.setState({ data: data, loading: false }));
 	}
 
-	handleChangeClick(e) {
+	handleUpdateClick(e) {
 		const id = e.target.id.slice("button".length);
 		const values = this.state.data.values;
 		let csv = this.state.data.csv;
 		const index = csv.map(o => o._id).indexOf(id);
 		csv[index].text = document.getElementById("input" + id).value;
+		csv[index].complete = document.querySelector(`input[name="${id}"]:checked`).value;
 		csv[index].edit = false;
 		this.setState({ data: { csv: csv, values: values } });
 	}
@@ -81,7 +82,7 @@ class Edit extends Component {
 				<Grid
 					data={data}
 					handleEditClick={this.handleEditClick}
-					handleChangeClick={this.handleChangeClick}
+					handleUpdateClick={this.handleUpdateClick}
 				/>
 			</div>
 		);

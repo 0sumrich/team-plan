@@ -20,12 +20,10 @@ class Chart extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		const a = this.props.data.csv.map(o => o.text);
-		const b = prevProps.data.csv.map(o => o.text);
-		if (compare(a, b)) {
+		if(this.props.data!==prevProps.data){
 			const data = this.props.data;
 			draw(data.values, data.csv);
-		}
+		};
 	}
 
 	componentWillUnmount() {

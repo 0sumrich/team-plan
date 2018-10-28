@@ -1,9 +1,6 @@
-// webpack.config.js
-
 const path = require('path');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
-//const nodeExternals = require('webpack-node-externals');
 
 var browserConfig = {
   entry: './src/browser/index.js',
@@ -23,7 +20,7 @@ var browserConfig = {
     })
   ],
   target: 'web',
-  mode: 'development'
+  mode: process.env.NODE_ENV
 }
 
 var serverConfig = {
@@ -51,11 +48,8 @@ var serverConfig = {
       IS_BROWSER: JSON.stringify(false)
     })
   ],
-  devServer: {
-    historyApiFallback: true
-  },
   target: 'node',
-  mode: 'development'
+  mode: process.env.NODE_ENV
 }
 
 module.exports = [browserConfig, serverConfig]
