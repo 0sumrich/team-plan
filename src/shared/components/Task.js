@@ -2,7 +2,12 @@ import React from "react";
 import Button from "./Button";
 import EditBar from "./EditBar";
 
-const Task = ({ task, handleEditClick, handleUpdateClick }) => {
+const Task = ({
+	task,
+	handleEditClick,
+	handleUpdateClick,
+	handleCompleteChange
+}) => {
 	const edit = task.data.edit;
 	const res = edit ? (
 		<input
@@ -15,7 +20,11 @@ const Task = ({ task, handleEditClick, handleUpdateClick }) => {
 		<p style={{ fontSize: "0.75em" }}>{task.data.text}</p>
 	);
 	const button = edit ? (
-		<EditBar task={task} handleUpdateClick={handleUpdateClick} />
+		<EditBar
+			task={task}
+			handleUpdateClick={handleUpdateClick}
+			handleCompleteChange={handleCompleteChange}
+		/>
 	) : (
 		<Button
 			id={`button${task.data._id}`}

@@ -6,7 +6,12 @@ import Title from "./Title";
 import Objectives from "./Objectives";
 
 function Grid(props) {
-	const { data, handleEditClick, handleUpdateClick } = props;
+	const {
+		data,
+		handleEditClick,
+		handleUpdateClick,
+		handleCompleteChange
+	} = props;
 	const csv = sortData(data.csv);
 	const values = data.values;
 	const rings = getRings(data.csv);
@@ -26,6 +31,7 @@ function Grid(props) {
 								isObjectivesList={i == 0 ? true : false}
 								handleEditClick={handleEditClick}
 								handleUpdateClick={handleUpdateClick}
+								handleCompleteChange={handleCompleteChange}
 							/>
 						</React.Fragment>
 					);

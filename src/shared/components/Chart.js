@@ -20,7 +20,13 @@ class Chart extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if(this.props.data!==prevProps.data){
+		const id = "5ba62311315a8a0f7091a896"
+		const data = this.props.data;
+		const csv = data.csv;
+		const oldCsv = prevProps.data.csv;
+		const index = csv.map(o => o._id).indexOf(id);
+		console.log(csv[index], oldCsv[index]);
+		if(this.props.data.csv!==prevProps.data.csv){
 			const data = this.props.data;
 			draw(data.values, data.csv);
 		};

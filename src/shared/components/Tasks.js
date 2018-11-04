@@ -1,7 +1,13 @@
 import React from "react";
 import Task from "./Task";
 
-const Tasks = ({ arr, handleChange, handleEditClick, handleUpdateClick }) =>
+const Tasks = ({
+	arr,
+	handleChange,
+	handleEditClick,
+	handleUpdateClick,
+	handleCompleteChange
+}) =>
 	arr.map((task, i) => {
 		return (
 			<React.Fragment key={"task" + i}>
@@ -10,6 +16,7 @@ const Tasks = ({ arr, handleChange, handleEditClick, handleUpdateClick }) =>
 						task={task}
 						handleEditClick={handleEditClick}
 						handleUpdateClick={handleUpdateClick}
+						handleCompleteChange={handleCompleteChange}
 					/>
 				</div>
 				<style jsx>{`

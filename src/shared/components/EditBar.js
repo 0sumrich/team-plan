@@ -1,9 +1,9 @@
 import React from "react";
 import Button from "./Button";
-import toBool from '../helper/toBool';
+import toBool from "../helper/toBool";
 
 function EditBar(props) {
-	const { task, handleUpdateClick } = props;
+	const { task, handleUpdateClick, handleCompleteChange } = props;
 	let btnStyle = Button.defaultProps.style;
 	const UpdateButton = () => (
 		<Button
@@ -15,15 +15,17 @@ function EditBar(props) {
 		</Button>
 	);
 
-	const Radio = ({ checked, children }) => {
+	const Radio = ({ checked, children, handleChange }) => {
+
 		return (
 			<React.Fragment>
 				<input
 					style={{ display: "inline", margin: "0 5px", padding: 3 }}
-					value={children=="Yes" ? "TRUE" : "FALSE"}
+					value={children == "Yes" ? "TRUE" : "FALSE"}
 					name={task.data._id}
 					type="radio"
-					defaultChecked={checked}
+					onChange={handleCompleteChange}
+					checked={checked}
 				/>
 				<label htmlFor={children} style={{ fontSize: "0.75em" }}>
 					{children}
@@ -44,7 +46,7 @@ function EditBar(props) {
 			>
 				Complete ?
 			</p>
-			<Radio checked={toBool(task.data.complete)}>Yes</Radio>
+			<Radio checked={toBool(task.data.complete)} handleChange={handleCompleteChange}>Yes</Radio>
 			<Radio checked={!toBool(task.data.complete)}>No</Radio>
 		</div>
 	);
