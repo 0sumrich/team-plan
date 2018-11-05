@@ -9,15 +9,15 @@ function Grid(props) {
 	const {
 		data,
 		handleEditClick,
-		handleUpdateClick,
-		handleCompleteChange
+		handlePreviewClick,
+		handleCompleteChange,
+		handleDeleteClick
 	} = props;
 	const csv = sortData(data.csv);
 	const values = data.values;
 	const rings = getRings(data.csv);
 	rings[0] = "Objectives";
 	const objectives = getObjectives(data.csv);
-	//<Objectives objectives={objectives} data={csv} />
 	return (
 		<React.Fragment>
 			<form>
@@ -30,8 +30,9 @@ function Grid(props) {
 								data={csv[i]}
 								isObjectivesList={i == 0 ? true : false}
 								handleEditClick={handleEditClick}
-								handleUpdateClick={handleUpdateClick}
+								handlePreviewClick={handlePreviewClick}
 								handleCompleteChange={handleCompleteChange}
+								handleDeleteClick={handleDeleteClick}
 							/>
 						</React.Fragment>
 					);

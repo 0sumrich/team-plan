@@ -1,20 +1,14 @@
 import React, { Component } from "react";
 import Chart from "./Chart";
 import Grid from "./Grid";
-import draw from "../helper/draw";
-import * as d3 from "d3";
+import redraw from '../helper/redraw';
 
-//change to have an update button
-
-//Needs tidying up - ONLY ONE STATE NOW PLEASE
-
-function reDraw(values, csv){
-			d3
-			.select("svg")
-			.selectAll("*")
-			.remove();
-			draw(values, csv);
-}
+//TO DO 
+//add delete function
+//edit objectives
+//create save - post funnction
+//if there's more than one edit as true - remove them all
+//DONE??
 
 class Edit extends Component {
 	constructor(props) {
@@ -33,13 +27,13 @@ class Edit extends Component {
 
 		this.state = {
 			data: data,
-			newData: data,
 			loading: data ? false : true
 		};
 		this.fetchData = this.fetchData.bind(this);
 		this.handleEditClick = this.handleEditClick.bind(this);
-		this.handleUpdateClick = this.handleUpdateClick.bind(this);
+		this.handlePreviewClick = this.handlePreviewClick.bind(this);
 		this.handleCompleteChange = this.handleCompleteChange.bind(this);
+		this.handleDeleteClick = this.handleDeleteClick.bind(this);
 	}
 
 	fetchData() {
@@ -51,40 +45,44 @@ class Edit extends Component {
 				return data;
 			})
 			.then(data =>
-				this.setState({ data: data, newData: data, loading: false })
+				this.setState({ data: data, loading: false })
 			);
 	}
 
-	handleUpdateClick(e) {
+	handlePreviewClick(e) {
 		const id = e.target.id.slice("button".length);
-		const values = this.state.newData.values;
-		let csv = this.state.newData.csv;
+		const values = this.state.data.values;
+		let csv = this.state.data.csv;
 		const index = csv.map(o => o._id).indexOf(id);
 		csv[index].edit = false;
 		this.setState({ data: { csv: csv, values: values } });
-		reDraw(values, csv);
+		redraw(values, csv);
 	}
 
 	handleEditClick(e) {
-		const data = this.state.newData;
+		const data = this.state.data;
 		const id = e.target.id.slice("button".length);
 		const values = data.values;
 		let csv = data.csv;
 		const index = csv.map(o => o._id).indexOf(id);
 		csv[index].edit = true;
-		this.setState({ newData: { csv: csv, values: values } });
+		this.setState({ data: { csv: csv, values: values } });
 	}
 
 	handleCompleteChange(e) {
-		const data = this.state.newData;
+		const data = this.state.data;
 		let csv = data.csv;
 		const values = data.values;
 		const id = e.target.name;
 		const index = csv.map(o => o._id).indexOf(id);
 		csv[index].complete = e.target.value;
 		this.setState({
-			newData: { csv: csv, values: values }
+			data: { csv: csv, values: values }
 		});
+	}
+
+	handleDeleteClick(e){
+		console.log(e.target.id);
 	}
 
 	componentDidMount() {
@@ -100,17 +98,18 @@ class Edit extends Component {
 	}
 
 	render() {
-		const { data, newData, loading } = this.state;
+		const { data, loading } = this.state;
 		const chart = loading ? (
 			<p>Loading</p>
 		) : (
 			<div>
 				<Chart data={data} />
 				<Grid
-					data={newData}
+					data={data}
 					handleEditClick={this.handleEditClick}
-					handleUpdateClick={this.handleUpdateClick}
+					handlePreviewClick={this.handlePreviewClick}
 					handleCompleteChange={this.handleCompleteChange}
+					handleDeleteClick={this.handleDeleteClick}
 				/>
 			</div>
 		);

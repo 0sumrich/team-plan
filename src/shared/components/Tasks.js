@@ -5,8 +5,9 @@ const Tasks = ({
 	arr,
 	handleChange,
 	handleEditClick,
-	handleUpdateClick,
-	handleCompleteChange
+	handlePreviewClick,
+	handleCompleteChange,
+	handleDeleteClick
 }) =>
 	arr.map((task, i) => {
 		return (
@@ -15,8 +16,9 @@ const Tasks = ({
 					<Task
 						task={task}
 						handleEditClick={handleEditClick}
-						handleUpdateClick={handleUpdateClick}
+						handlePreviewClick={handlePreviewClick}
 						handleCompleteChange={handleCompleteChange}
+						handleDeleteClick={handleDeleteClick}
 					/>
 				</div>
 				<style jsx>{`

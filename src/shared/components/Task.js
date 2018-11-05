@@ -5,8 +5,9 @@ import EditBar from "./EditBar";
 const Task = ({
 	task,
 	handleEditClick,
-	handleUpdateClick,
-	handleCompleteChange
+	handlePreviewClick,
+	handleCompleteChange,
+	handleDeleteClick
 }) => {
 	const edit = task.data.edit;
 	const res = edit ? (
@@ -22,8 +23,9 @@ const Task = ({
 	const button = edit ? (
 		<EditBar
 			task={task}
-			handleUpdateClick={handleUpdateClick}
+			handlePreviewClick={handlePreviewClick}
 			handleCompleteChange={handleCompleteChange}
+			handleDeleteClick={handleDeleteClick}
 		/>
 	) : (
 		<Button

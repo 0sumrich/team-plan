@@ -5,9 +5,10 @@ const Objectives = ({
 	objectives,
 	data,
 	isObjectivesList,
-	handleUpdateClick,
+	handlePreviewClick,
 	handleEditClick,
-	handleCompleteChange
+	handleCompleteChange,
+	handleDeleteClick
 }) =>
 	objectives.map((o, i) => {
 		const objective = o.text;
@@ -17,8 +18,9 @@ const Objectives = ({
 				<Tasks
 					arr={filtered}
 					handleEditClick={handleEditClick}
-					handleUpdateClick={handleUpdateClick}
+					handlePreviewClick={handlePreviewClick}
 					handleCompleteChange={handleCompleteChange}
+					handleDeleteClick={handleDeleteClick}
 				/>
 			) : null;
 		return (
