@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import Chart from "./Chart";
 import Grid from "./Grid";
-import redraw from '../helper/redraw';
+import Button from "./Button";
+import redraw from "../helper/redraw";
 
-//TO DO 
-//add delete function
+//TO DO
 //edit objectives
 //create save - post funnction
-//if there's more than one edit as true - remove them all
+//sort button active
 //DONE??
 
 class Edit extends Component {
@@ -27,13 +27,15 @@ class Edit extends Component {
 
 		this.state = {
 			data: data,
-			loading: data ? false : true
+			loading: data ? false : true,
+			deleted: []
 		};
 		this.fetchData = this.fetchData.bind(this);
 		this.handleEditClick = this.handleEditClick.bind(this);
 		this.handlePreviewClick = this.handlePreviewClick.bind(this);
 		this.handleCompleteChange = this.handleCompleteChange.bind(this);
 		this.handleDeleteClick = this.handleDeleteClick.bind(this);
+		this.handleSaveClick = this.handleSaveClick.bind(this);
 	}
 
 	fetchData() {
@@ -44,9 +46,7 @@ class Edit extends Component {
 				data.csv.forEach(o => (o.edit = false));
 				return data;
 			})
-			.then(data =>
-				this.setState({ data: data, loading: false })
-			);
+			.then(data => this.setState({ data: data, loading: false }));
 	}
 
 	handlePreviewClick(e) {
@@ -81,8 +81,26 @@ class Edit extends Component {
 		});
 	}
 
-	handleDeleteClick(e){
+	handleDeleteClick(e) {
+		let data = this.state.data;
+		let csv = data.csv;
+		const values = data.values;
+		const id = e.target.id.slice("delete".length);
+		const index = csv.map(o => o._id).indexOf(id);
+		const deleted = csv[index];
+		csv.splice(index, 1);
+		this.setState(prevState => {
+			return {
+				data: { csv, values },
+				deleted: [...prevState.deleted, deleted]
+			};
+		});
+		redraw(values, csv);
+	}
+
+	handleSaveClick(e) {
 		console.log(e.target.id);
+		//post
 	}
 
 	componentDidMount() {
@@ -104,6 +122,16 @@ class Edit extends Component {
 		) : (
 			<div>
 				<Chart data={data} />
+				<Button
+					id="save"
+					position="sticky"
+					bg={["blue", "grey"]}
+					color="white"
+					border="white"
+					handleClick={this.handleSaveClick}
+				>
+					Save
+				</Button>
 				<Grid
 					data={data}
 					handleEditClick={this.handleEditClick}

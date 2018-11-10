@@ -38,7 +38,7 @@ class App extends Component {
         <Nav dest="/test">Test</Nav>
         <Nav dest="/edit">Edit</Nav>
         <Nav dest="/">Home</Nav>
-        <Button id="saveButton" click={this.handlePngClick}>Export as PNG</Button>
+        <Button id="saveButton" handleClick={this.handlePngClick}>Export as PNG</Button>
         <Switch>
           {routes.map(({ path, exact, component: Component, ...rest }) => (
             <Route key={path} path={path} exact={exact} render={(props) => (

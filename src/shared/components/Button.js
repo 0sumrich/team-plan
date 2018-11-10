@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Button extends Component {
   constructor(props){
@@ -33,9 +34,12 @@ class Button extends Component {
       bg,
       id,
       form,
+      color,
+      border,
+      position,
       children
     } = this.props;   
- 
+
     return (
       <React.Fragment>
         <button
@@ -44,15 +48,19 @@ class Button extends Component {
         onClick={e => this.handleClick(e)}
         onMouseEnter={e => this.hover(e)}
         onMouseLeave={e => this.hover(e)}
+        style={style.color ? {color: style.color} : null}
         >{children}</button>
         <style jsx>{`
-          button {            
+          #${id} {            
             border-radius: ${style.borderRadius};
-            border: ${style.border};
+            color: ${color};
+            border: 1px solid ${border};
             padding: ${style.padding};
             font-family: ${style.fontFamily};
             cursor: ${style.cursor};
             background: ${this.state.hover||this.state.active ? bg[1]: bg[0]};
+            position: ${position};
+            top: 0;
             width: 100px;
             margin: 5px;
           }
@@ -65,13 +73,26 @@ class Button extends Component {
 
 Button.defaultProps = {
   style: {
-    border: '1px solid black',
     borderRadius: '5px',
     padding: '5px 10px',
     fontFamily: 'inherit',
     cursor: 'pointer'
   },
+  color: 'black',
+  border: 'black',
+  position: 'initial',
   bg: ['white', '#e5e5e5']
+};
+
+Button.propTypes = {
+  style: PropTypes.object,
+  bg: PropTypes.array,
+  id: PropTypes.string.isRequired,
+  form: PropTypes.bool,
+  color: PropTypes.string,
+  border: PropTypes.string,
+  position: PropTypes.string,
+  children: PropTypes.any.isRequired
 }
 
 export default Button;

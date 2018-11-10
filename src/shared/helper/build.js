@@ -1,10 +1,14 @@
 import * as d3 from 'd3';
 import getRadii from './getRadii';
+import getTeams from './getTeams';
 import chop from './chop';
 import {
   radius, 
   innerMost,
-  scheme
+  scheme,
+  height,
+  width,
+  margin
 } from '../constants/constants';
 import {
   fontSize,
@@ -103,4 +107,69 @@ export default function build(d, svg){
         chop(this, d, radii[i], darker(scheme[i+1]));  
     })
   }
+    //legend
+  let teams = getTeams(d);
+  teams.splice(0, 0, "Library Service Values");
+  let legendY = d3.scaleLinear().domain([0, teams.length]).range([5, 0.3*height])
+  const legXPos = width/2;
+  const legYPos = 0-(height/2)+margin.top/3;
+  let legend = svg
+  .append('g')
+  .attr("transform", "translate(" + legXPos + "," + legYPos + ")");
+  
+  legend
+    .selectAll(".circ")
+    .data(teams)
+    .enter()
+    .append("circle")
+    .attr("class", ".circ")
+    .attr('cx', margin.left)
+    .attr('cy', (t, i) => legendY(i))
+    .attr('r', 4)
+    .attr('stroke', 'black')
+    .attr('stroke-width', 0.25)
+    .style("fill", (t, i) => scheme[i]);
+
+  legend
+    .selectAll('.legendText')
+    .data(teams)
+    .enter()
+    .append('text')
+    .attr('class', '.legendText')
+    .attr('x', margin.left+8)
+    .attr('y', (t, i) => legendY(i)+0.5)
+    //.attr('text-anchor', 'middle')
+    .attr('dominant-baseline', 'middle')
+    .attr('font-size', '0.4em')
+    .attr('fill', 'black')
+    .text(t => t);
+  
+  //other lines
+  svg.append('line')
+  .attr('x1', 0)
+  .attr('y1', radii[0].inner)
+  .attr('x2', 0)
+  .attr('y2', radius+1)
+  .attr('stroke', 'black');
+  
+  svg.append('line')
+  .attr('x1', 0)
+  .attr('y1', 0-radii[0].inner)
+  .attr('x2', 0)
+  .attr('y2', 0-radius-1)
+  .attr('stroke', 'black');
+  
+  svg.append('line')
+  .attr('x1', radii[0].inner)
+  .attr('y1', 0)
+  .attr('x2', radius+1)
+  .attr('y2', 0)
+  .attr('stroke', 'black');
+  
+   svg.append('line')
+  .attr('x1', 0-radii[0].inner)
+  .attr('y1', 0)
+  .attr('x2', 0-radius)
+  .attr('y2', 0)
+  .attr('stroke', 'black');
 }
