@@ -5,8 +5,9 @@ import Button from "./Button";
 import redraw from "../helper/redraw";
 
 //TO DO
-//edit objectives
-//create save - post funnction
+//
+//MAKE A BACKUP MODEL AND BACKUP BEFORE CHANGE SO YOU CAN DO UNDOS
+//make an add button and 
 //sort button active
 //DONE??
 
@@ -117,9 +118,12 @@ class Edit extends Component {
 		redraw(values, csv);
 	}
 
-	handleSaveClick(e) {
-		console.log(e.target.id);
-		//post
+	handleSaveClick(e) {   	
+    	fetch('/update', {
+    		method: 'POST',
+    		headers: {'Content-Type':'application/json'},
+    		body: JSON.stringify(this.state.data.csv)
+    	}).then(res => res.json()).then(res => console.log(res.result));
 	}
 
 	componentDidMount() {
