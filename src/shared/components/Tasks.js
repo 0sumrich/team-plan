@@ -7,6 +7,7 @@ const Tasks = ({
 	handleEditClick,
 	handlePreviewClick,
 	handleCompleteChange,
+	handleTextChange,
 	handleDeleteClick
 }) =>
 	arr.map((task, i) => {
@@ -18,6 +19,7 @@ const Tasks = ({
 						handleEditClick={handleEditClick}
 						handlePreviewClick={handlePreviewClick}
 						handleCompleteChange={handleCompleteChange}
+						handleTextChange={handleTextChange}
 						handleDeleteClick={handleDeleteClick}
 					/>
 				</div>
@@ -32,3 +34,4 @@ const Tasks = ({
 	});
 
 export default Tasks;
+

@@ -34,6 +34,7 @@ class Edit extends Component {
 		this.handleEditClick = this.handleEditClick.bind(this);
 		this.handlePreviewClick = this.handlePreviewClick.bind(this);
 		this.handleCompleteChange = this.handleCompleteChange.bind(this);
+		this.handleTextChange = this.handleTextChange.bind(this);
 		this.handleDeleteClick = this.handleDeleteClick.bind(this);
 		this.handleSaveClick = this.handleSaveClick.bind(this);
 	}
@@ -67,6 +68,24 @@ class Edit extends Component {
 		const index = csv.map(o => o._id).indexOf(id);
 		csv[index].edit = true;
 		this.setState({ data: { csv: csv, values: values } });
+	}
+
+	handleTextChange(e){
+		let data = this.state.data;
+		let csv = data.csv;
+		const values = data.values;
+		const id = e.target.id.slice("input".length);
+		const index = csv.map(o => o._id).indexOf(id);
+		const original = csv[index].text;
+		csv.forEach(o => {
+			if(o.objective==original){
+				o.objective=e.target.value;
+			}
+		})
+		csv[index].text=e.target.value;
+		this.setState({
+			data: { csv: csv, values: values }
+		});
 	}
 
 	handleCompleteChange(e) {
@@ -117,7 +136,7 @@ class Edit extends Component {
 
 	render() {
 		const { data, loading } = this.state;
-		const chart = loading ? (
+		const res = loading ? (
 			<p>Loading</p>
 		) : (
 			<div>
@@ -138,10 +157,11 @@ class Edit extends Component {
 					handlePreviewClick={this.handlePreviewClick}
 					handleCompleteChange={this.handleCompleteChange}
 					handleDeleteClick={this.handleDeleteClick}
+					handleTextChange={this.handleTextChange}
 				/>
 			</div>
 		);
-		return chart;
+		return res;
 	}
 }
 

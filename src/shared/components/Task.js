@@ -7,15 +7,17 @@ const Task = ({
 	handleEditClick,
 	handlePreviewClick,
 	handleCompleteChange,
-	handleDeleteClick
+	handleDeleteClick,
+	handleTextChange
 }) => {
 	const edit = task.data.edit;
 	const res = edit ? (
 		<input
 			type="text"
 			className="task"
+			onChange={handleTextChange}
 			id={`input${task.data._id}`}
-			defaultValue={task.data.text}
+			value={task.data.text}
 		/>
 	) : (
 		<p style={{ fontSize: "0.75em" }}>{task.data.text}</p>
