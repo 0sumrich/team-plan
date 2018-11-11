@@ -12,7 +12,7 @@ import { StaticRouter, matchPath } from "react-router-dom";
 import routes from "../shared/routes";
 import getInitData from "../shared/getInitData";
 import csv from "./models/csv";
-import Backup from './models/backup';
+import Backup from './models/Backup';
 import postCsv from './helper/postCsv';
 import backupCsv from './helper/backupCsv';
 import deleteCsv from './helper/deleteCsv';

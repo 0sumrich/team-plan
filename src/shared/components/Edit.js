@@ -155,9 +155,6 @@ class Edit extends Component {
 					});
 				}
 			});
-		//thoughts
-		//do the post function on the actual component
-		//then this.fetchall() here
 	}
 
 	handleSaveClick(e) {
