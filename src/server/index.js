@@ -12,6 +12,9 @@ import { StaticRouter, matchPath } from "react-router-dom";
 import routes from "../shared/routes";
 import getInitData from "../shared/getInitData";
 import csv from "./models/csv";
+import Backup from './models/backup';
+import postCsv from './helper/postCsv';
+import backupCsv from './helper/backupCsv';
 
 const app = express();
 const port = process.env.PORT;
@@ -39,25 +42,12 @@ app.get("/api", (req, res) => {
 });
 
 app.post("/update", (req, res) => {
-  let send = { result: "success" };
-  const data = req.body;
-  for (let i = 0; i < data.length; i++) {
-    const obj = data[i];
-    csv.findById(obj._id, (err, doc) => {
-      if (err) {
-        send.result = "fail";
-        res.send(JSON.stringify(test));
-      } else {
-        doc.text = obj.text;
-        doc.team = obj.team;
-        doc.objective = obj.objective;
-        doc.complete = obj.complete;
-        doc.save();
-      }
-    });
-  }
-  res.send(JSON.stringify(send));
+  postCsv(req.body, csv);
 });
+
+app.post("/backup", (req, res) => {
+  backupCsv(req.body, Backup);
+})
 
 app.get("*", (req, res, next) => {
   const activeRoute = routes.find(route => matchPath(req.url, route)) || {};

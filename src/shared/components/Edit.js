@@ -6,8 +6,8 @@ import redraw from "../helper/redraw";
 
 //TO DO
 //
-//MAKE A BACKUP MODEL AND BACKUP BEFORE CHANGE SO YOU CAN DO UNDOS
-//make an add button and 
+//
+//make an add button - will need to save to DB
 //sort button active
 //DONE??
 
@@ -28,6 +28,7 @@ class Edit extends Component {
 
 		this.state = {
 			data: data,
+			backup: data,
 			loading: data ? false : true,
 			deleted: []
 		};
@@ -38,6 +39,7 @@ class Edit extends Component {
 		this.handleTextChange = this.handleTextChange.bind(this);
 		this.handleDeleteClick = this.handleDeleteClick.bind(this);
 		this.handleSaveClick = this.handleSaveClick.bind(this);
+		this.handleAddClick = this.handleAddClick.bind(this);
 	}
 
 	fetchData() {
@@ -48,7 +50,9 @@ class Edit extends Component {
 				data.csv.forEach(o => (o.edit = false));
 				return data;
 			})
-			.then(data => this.setState({ data: data, loading: false }));
+			.then(data =>
+				this.setState({ data: data, backup: data, loading: false })
+			);
 	}
 
 	handlePreviewClick(e) {
@@ -71,7 +75,7 @@ class Edit extends Component {
 		this.setState({ data: { csv: csv, values: values } });
 	}
 
-	handleTextChange(e){
+	handleTextChange(e) {
 		let data = this.state.data;
 		let csv = data.csv;
 		const values = data.values;
@@ -79,11 +83,11 @@ class Edit extends Component {
 		const index = csv.map(o => o._id).indexOf(id);
 		const original = csv[index].text;
 		csv.forEach(o => {
-			if(o.objective==original){
-				o.objective=e.target.value;
+			if (o.objective == original) {
+				o.objective = e.target.value;
 			}
-		})
-		csv[index].text=e.target.value;
+		});
+		csv[index].text = e.target.value;
 		this.setState({
 			data: { csv: csv, values: values }
 		});
@@ -118,12 +122,29 @@ class Edit extends Component {
 		redraw(values, csv);
 	}
 
-	handleSaveClick(e) {   	
-    	fetch('/update', {
-    		method: 'POST',
-    		headers: {'Content-Type':'application/json'},
-    		body: JSON.stringify(this.state.data.csv)
-    	}).then(res => res.json()).then(res => console.log(res.result));
+	handleAddClick(e){
+		console.log(e.target.id);
+	}
+
+	handleSaveClick(e) {
+		const update = () =>
+			fetch("/update", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(this.state.data.csv)
+			});
+		const backup = () =>
+			fetch("/backup", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(this.state.backup.csv)
+			});
+
+		Promise.all([update(), backup()]);
+
+		this.setState(prevState => {
+			return { backup: prevState.data };
+		});
 	}
 
 	componentDidMount() {
@@ -162,6 +183,7 @@ class Edit extends Component {
 					handleCompleteChange={this.handleCompleteChange}
 					handleDeleteClick={this.handleDeleteClick}
 					handleTextChange={this.handleTextChange}
+					handleAddClick={this.handleAddClick}
 				/>
 			</div>
 		);

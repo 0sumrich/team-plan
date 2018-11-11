@@ -1,0 +1,12 @@
+export default function backupCsv(body, model) {
+  for (let i = 0; i < body.length; i++) {
+    const obj = body[i];
+    model.deleteMany({});
+    let newBackup = new model();
+    newBackup.text = obj.text;
+    newBackup.team = obj.team;
+    newBackup.objective = obj.objective;
+    newBackup.complete = obj.complete;
+    newBackup.save();
+  }
+}
