@@ -1,4 +1,4 @@
-export default function postCsv(body, model){
+export default function postCsv(body, model, res){
   for (let i = 0; i < body.length; i++) {
     const obj = body[i];
     model.findById(obj._id, (err, doc) => {
@@ -13,4 +13,5 @@ export default function postCsv(body, model){
       }
     });
   }
+  res.sendStatus(200);
 }

@@ -130,8 +130,6 @@ class Edit extends Component {
 			complete: "FALSE"
 		};
 
-
-		
 		const addTask = () =>
 			fetch("/addTask", {
 				method: "POST",
@@ -145,6 +143,10 @@ class Edit extends Component {
 				if (res.error) {
 					alert(error);
 				} else {
+					redraw(this.state.data.values, [
+						...this.state.data.csv,
+						res
+					]);
 					this.setState(prevState => {
 						return {
 							data: {
@@ -178,11 +180,20 @@ class Edit extends Component {
 				body: JSON.stringify(this.state.deleted)
 			});
 
-		Promise.all([update(), backup(), del()]);
+		Promise.all([
+			update(),
+			backup(),
+			this.state.deleted.length > 0 ? del() : null
+		]).then(res => {
+			const arr = res.filter(o => o && o.status==200);
+			arr.length<2 ? alert('Error - please try later') : alert('Saved!')
+		});
 
 		this.setState(prevState => {
 			return { backup: prevState.data, deleted: [] };
 		});
+
+		redraw(this.state.data.values, this.state.data.csv);
 	}
 
 	componentDidMount() {

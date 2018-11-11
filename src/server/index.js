@@ -44,18 +44,16 @@ app.get("/api", (req, res) => {
 });
 
 app.post("/update", (req, res) => {
-  postCsv(req.body, csv);
+  postCsv(req.body, csv, res);
 });
 
 app.post("/backup", (req, res) => {
-  backupCsv(req.body, Backup);
+  backupCsv(req.body, Backup, res);
 })
 
 app.post("/delete", (req, res) => {
-  deleteCsv(req.body, csv);
+  deleteCsv(req.body, csv, res);
 })
-
-//addTask
 
 app.post("/addTask", (req, res) => {
   addCsv(req.body, csv, res);

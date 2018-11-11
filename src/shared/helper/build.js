@@ -39,7 +39,6 @@ export default function build(d, svg){
     .attr('id', (d) => "seg" + d.data._id)
     .attr("d", arc(radii, 0))
     .style("fill", scheme[1])
-    //.on("mouseover", d => console.log(d));
   
     svg.selectAll('.oText')
     .data(objectives)
@@ -71,7 +70,6 @@ export default function build(d, svg){
     .attr('id', d => "seg" + d.data._id)
     .attr("d", arc(radii, i))
     .style("fill",(d)=> {
-      //"5ba62311315a8a0f7091a896" = extend opening hours in 2 phases
       const complete = toBool(d.data.complete);
       const color = d3.color(scheme[i+1]);
       if(complete) {
@@ -79,7 +77,6 @@ export default function build(d, svg){
       }
       return color + "";
     })
-    .on("mouseover", d => console.log(d));
     
     
     svg.selectAll('.task' + i.toString())
