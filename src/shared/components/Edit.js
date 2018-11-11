@@ -5,10 +5,8 @@ import Button from "./Button";
 import redraw from "../helper/redraw";
 
 //TO DO
-//
-//
-//make an add button - will need to save to DB
 //sort button active
+//some sort of success messsage on saved?
 //DONE??
 
 class Edit extends Component {
@@ -122,8 +120,44 @@ class Edit extends Component {
 		redraw(values, csv);
 	}
 
-	handleAddClick(e){
-		console.log(e.target.id);
+	handleAddClick(team, objective) {
+		console.log(team, objective);
+
+		const body = {
+			text: "Edit me",
+			team: team,
+			objective: objective,
+			complete: "FALSE"
+		};
+
+
+		
+		const addTask = () =>
+			fetch("/addTask", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(body)
+			});
+
+		addTask()
+			.then(res => res.json())
+			.then(res => {
+				if (res.error) {
+					alert(error);
+				} else {
+					this.setState(prevState => {
+						return {
+							data: {
+								csv: [...prevState.data.csv, res],
+								values: prevState.data.values
+							}
+						};
+					});
+				}
+			});
+		//thoughts
+		//do the post function on the actual component
+		//then this.fetchall() here
 	}
 
 	handleSaveClick(e) {
@@ -140,10 +174,17 @@ class Edit extends Component {
 				body: JSON.stringify(this.state.backup.csv)
 			});
 
-		Promise.all([update(), backup()]);
+		const del = () =>
+			fetch("/delete", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(this.state.deleted)
+			});
+
+		Promise.all([update(), backup(), del()]);
 
 		this.setState(prevState => {
-			return { backup: prevState.data };
+			return { backup: prevState.data, deleted: [] };
 		});
 	}
 

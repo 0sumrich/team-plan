@@ -1,6 +1,7 @@
 import React from "react";
 import Tasks from "./Tasks";
-import Task from './Task';
+import Task from "./Task";
+import AddButton from './AddButton';
 
 const Objectives = ({
 	objectives,
@@ -10,36 +11,46 @@ const Objectives = ({
 	handleEditClick,
 	handleCompleteChange,
 	handleDeleteClick,
-	handleTextChange
+	handleTextChange,
+	team,
+	handleAddClick
 }) =>
 	objectives.map((o, i) => {
 		const objective = o.text;
 		const filtered = data.filter(k => k.data.objective == objective);
 		if (isObjectivesList) {
 			return (
-			<React.Fragment key={"task" + i}>
-				<div>
-					<Task
-						task={data[i]}
-						handleEditClick={handleEditClick}
-						handlePreviewClick={handlePreviewClick}
-						handleCompleteChange={handleCompleteChange}
-						handleDeleteClick={handleDeleteClick}
-						handleTextChange={handleTextChange}
-					/>
-				</div>
-				<style jsx>{`
-					div {
-						display: grid;
-						grid-template-columns: 1fr 1fr;
-					}
-				`}</style>
-			</React.Fragment>
+				<React.Fragment key={"task" + i}>
+					<div>
+						<Task
+							task={data[i]}
+							handleEditClick={handleEditClick}
+							handlePreviewClick={handlePreviewClick}
+							handleCompleteChange={handleCompleteChange}
+							handleDeleteClick={handleDeleteClick}
+							handleTextChange={handleTextChange}
+						/>
+					</div>
+					<style jsx>{`
+						div {
+							display: grid;
+							grid-template-columns: 1fr 1fr;
+						}
+					`}</style>
+				</React.Fragment>
 			);
 		} else {
 			return (
 				<React.Fragment key={"objective" + i}>
-					<p>{objective}</p>
+					<div className="o-container">
+						<p>{objective}</p>
+						<AddButton
+							objective={objective}
+							team={team}
+							id={"add"+i}
+							handleClick={handleAddClick}
+						/>
+					</div>
 					<Tasks
 						arr={filtered}
 						handleEditClick={handleEditClick}
@@ -48,6 +59,12 @@ const Objectives = ({
 						handleDeleteClick={handleDeleteClick}
 						handleTextChange={handleTextChange}
 					/>
+					<style jsx>{`
+						.o-container {
+							display: grid;
+							grid-template-columns: 1fr 1fr;
+						}
+					`}</style>
 				</React.Fragment>
 			);
 		}
@@ -55,10 +72,3 @@ const Objectives = ({
 
 export default Objectives;
 
-/*
-	task,
-	handleEditClick,
-	handlePreviewClick,
-	handleCompleteChange,
-	handleDeleteClick
-	*/

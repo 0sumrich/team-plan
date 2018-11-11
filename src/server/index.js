@@ -15,6 +15,8 @@ import csv from "./models/csv";
 import Backup from './models/backup';
 import postCsv from './helper/postCsv';
 import backupCsv from './helper/backupCsv';
+import deleteCsv from './helper/deleteCsv';
+import addCsv from './helper/addCsv';
 
 const app = express();
 const port = process.env.PORT;
@@ -47,6 +49,16 @@ app.post("/update", (req, res) => {
 
 app.post("/backup", (req, res) => {
   backupCsv(req.body, Backup);
+})
+
+app.post("/delete", (req, res) => {
+  deleteCsv(req.body, csv);
+})
+
+//addTask
+
+app.post("/addTask", (req, res) => {
+  addCsv(req.body, csv, res);
 })
 
 app.get("*", (req, res, next) => {
