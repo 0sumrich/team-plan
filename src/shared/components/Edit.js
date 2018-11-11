@@ -6,8 +6,6 @@ import redraw from "../helper/redraw";
 
 //TO DO
 //sort button active
-//some sort of success messsage on saved?
-//DONE??
 
 class Edit extends Component {
 	constructor(props) {
@@ -121,7 +119,6 @@ class Edit extends Component {
 	}
 
 	handleAddClick(team, objective) {
-		console.log(team, objective);
 
 		const body = {
 			text: "Edit me",
