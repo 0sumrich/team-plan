@@ -48,7 +48,11 @@ app.post("/update", (req, res) => {
 });
 
 app.post("/backup", (req, res) => {
-  backupCsv(req.body, Backup, res);
+  Backup.deleteMany({}, err => {
+    if(err) console.log(err);
+    backupCsv(req.body, Backup, res);  
+  });
+  
 })
 
 app.post("/delete", (req, res) => {
