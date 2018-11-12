@@ -5,8 +5,7 @@ class Button extends Component {
   constructor(props){
     super(props);
     this.state = {
-      hover: false,
-      active: false
+      hover: false
     }
   }
   hover() {
@@ -16,13 +15,9 @@ class Button extends Component {
   };
 
   handleClick(e){
-    //e.preventDefault();
     if(this.props.form){
       e.preventDefault();
     }
-    this.setState(prevState => {
-      return {active: !prevState.active}
-    });
     if(this.props.handleClick) {
       this.props.handleClick(e)
     }
@@ -48,7 +43,6 @@ class Button extends Component {
         onClick={e => this.handleClick(e)}
         onMouseEnter={e => this.hover(e)}
         onMouseLeave={e => this.hover(e)}
-        style={style.color ? {color: style.color} : null}
         >{children}</button>
         <style jsx>{`
           #${id} {            
@@ -58,7 +52,7 @@ class Button extends Component {
             padding: ${style.padding};
             font-family: ${style.fontFamily};
             cursor: ${style.cursor};
-            background: ${this.state.hover||this.state.active ? bg[1]: bg[0]};
+            background: ${this.state.hover||this.props.active ? bg[1]: bg[0]};
             position: ${position};
             top: 0;
             width: 100px;
@@ -81,7 +75,8 @@ Button.defaultProps = {
   color: 'black',
   border: 'black',
   position: 'initial',
-  bg: ['white', '#e5e5e5']
+  bg: ['white', '#e5e5e5'],
+  active: false
 };
 
 Button.propTypes = {
@@ -92,6 +87,7 @@ Button.propTypes = {
   color: PropTypes.string,
   border: PropTypes.string,
   position: PropTypes.string,
+  active: PropTypes.bool,
   children: PropTypes.any.isRequired
 }
 

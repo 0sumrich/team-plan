@@ -5,7 +5,6 @@ import Button from "./Button";
 import redraw from "../helper/redraw";
 
 //TO DO
-//sort the backup delete function
 //sort button active
 
 class Edit extends Component {
