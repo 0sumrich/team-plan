@@ -21,4 +21,4 @@ Originally you would just edit it from a csv file and then reupload it manually.
 The result 
 ![alt text](planisphere-demo.png "Circular Team Plan")
 
-# [Live Version on Glitch](https://synonymous-thumb.glitch.me "Team Plan")
+# [Live Version on Glitch](https://team-plan.glitch.me/ "Team Plan")
