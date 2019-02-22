@@ -141,7 +141,9 @@ export default function build(d, svg){
     .attr('fill', 'black')
     .text(t => t);
   
-  //other lines
+  //other lines 
+  //NOT NEEDED FOR NOW
+  /*
   svg.append('line')
   .attr('x1', 0)
   .attr('y1', radii[0].inner)
@@ -169,4 +171,5 @@ export default function build(d, svg){
   .attr('x2', 0-radius)
   .attr('y2', 0)
   .attr('stroke', 'black');
+  */
 }

@@ -27,7 +27,12 @@ const uri =
   ":" +
   process.env.PASS +
   "@ds113019.mlab.com:13019/team-plan";
-mongoose.connect(uri, { useNewUrlParser: true });
+
+const uriCurr = `mongodb://${process.env.USER_CURRENT}:${
+  process.env.PASS_CURRENT
+}@ds261644.mlab.com:61644/team-plan-current`;
+
+mongoose.connect(uriCurr, { useNewUrlParser: true });
 const db = mongoose.connection;
 
 app.use(cors());
