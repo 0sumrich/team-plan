@@ -7,7 +7,7 @@ import React from "react";
 import App from "../shared/App";
 import serialize from "serialize-javascript";
 import mongoose from "mongoose";
-import { flushToHTML } from "styled-jsx/server";
+import { flushToHTML } from 'styled-jsx/server'
 import { StaticRouter, matchPath } from "react-router-dom";
 import routes from "../shared/routes";
 import getInitData from "../shared/getInitData";

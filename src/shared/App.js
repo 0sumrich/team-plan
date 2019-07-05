@@ -32,7 +32,6 @@ class App extends Component {
 
   handleNavClick(e) {
     const res = e.target.id == "home" ? 0 : 1;
-    console.log(res);
     this.setState(prevState => {
       return {
         nav : prevState.nav.map((b, i) => i==res ? true : false)
@@ -45,7 +44,6 @@ class App extends Component {
       width: "95vw",
       height: "95vw"
     };
-
     return (
       <div>
         <NavBar

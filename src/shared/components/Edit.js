@@ -3,6 +3,8 @@ import Chart from "./Chart";
 import Grid from "./Grid";
 import Button from "./Button";
 import redraw from "../helper/redraw";
+import clear from "../helper/clear";
+import addObjective from '../helper/addObjective';
 
 //TO DO
 //sort button active
@@ -35,7 +37,9 @@ class Edit extends Component {
 		this.handleTextChange = this.handleTextChange.bind(this);
 		this.handleDeleteClick = this.handleDeleteClick.bind(this);
 		this.handleSaveClick = this.handleSaveClick.bind(this);
+		this.handleClearClick = this.handleClearClick.bind(this);
 		this.handleAddClick = this.handleAddClick.bind(this);
+		this.handleAddObjectiveClick = this.handleAddObjectiveClick.bind(this);
 	}
 
 	fetchData() {
@@ -118,8 +122,16 @@ class Edit extends Component {
 		redraw(values, csv);
 	}
 
-	handleAddClick(team, objective) {
+	handleAddObjectiveClick() {
+		const data = this.state.data;
+		const csv = addObjective(data.csv);
+		const values = data.values;
+    this.setState({data: { csv: csv, values: values }});
+    redraw(values, csv);
+    //this.handleSaveClick();
+	}
 
+	handleAddClick(team, objective) {
 		const body = {
 			text: "Edit me",
 			team: team,
@@ -138,7 +150,7 @@ class Edit extends Component {
 			.then(res => res.json())
 			.then(res => {
 				if (res.error) {
-					alert(error);
+					alert(res.error);
 				} else {
 					redraw(this.state.data.values, [
 						...this.state.data.csv,
@@ -182,8 +194,10 @@ class Edit extends Component {
 			backup(),
 			this.state.deleted.length > 0 ? del() : null
 		]).then(res => {
-			const arr = res.filter(o => o && o.status==200);
-			arr.length<2 ? alert('Error - please try later') : alert('Saved!')
+			const arr = res.filter(o => o && o.status == 200);
+			arr.length < 2
+				? alert("Error - please try later")
+				: alert("Saved!");
 		});
 
 		this.setState(prevState => {
@@ -191,6 +205,54 @@ class Edit extends Component {
 		});
 
 		redraw(this.state.data.values, this.state.data.csv);
+	}
+
+	handleClearClick(e) {
+		e.preventDefault();
+		let data = this.state.data;
+		//let csv = clear(data.csv);
+		const csv = data.csv;
+		const newCsv = clear(data.csv);
+		const newIds = newCsv.map(o => o._id);
+		const deleted = csv.filter(o => !newIds.includes(o._id));
+		const values = data.values;
+		const update = () =>
+			fetch("/update", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(newCsv)
+			});
+		const backup = () =>
+			fetch("/backup", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(this.state.backup.csv)
+			});
+
+		const del = () =>
+			fetch("/delete", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(deleted)
+			});
+
+		Promise.all([
+			update(),
+			backup(),
+			deleted.length > 0 ? del() : null
+		]).then(res => {
+			const arr = res.filter(o => o && o.status == 200);
+			/*
+			arr.length < 2
+				? alert("Error - please try later")
+				: alert("Saved!");
+				*/
+			if(arr.length<2){
+				alert('Error - try again later');
+			}else {
+				this.fetchData();
+			}
+		});
 	}
 
 	componentDidMount() {
@@ -205,6 +267,8 @@ class Edit extends Component {
 		}
 	}
 
+	/*
+
 	render() {
 		const { data, loading } = this.state;
 		const res = loading ? (
@@ -214,13 +278,23 @@ class Edit extends Component {
 				<Chart data={data} />
 				<Button
 					id="save"
-					position="sticky"
+					position="relative"
 					bg={["blue", "grey"]}
 					color="white"
 					border="white"
 					handleClick={this.handleSaveClick}
 				>
 					Save
+				</Button>
+				<Button
+					id="clear"
+					position="relative"
+					bg={["blue", "grey"]}
+					color="white"
+					border="white"
+					handleClick={this.handleClearClick}
+				>
+					Clear
 				</Button>
 				<Grid
 					data={data}
@@ -230,6 +304,31 @@ class Edit extends Component {
 					handleDeleteClick={this.handleDeleteClick}
 					handleTextChange={this.handleTextChange}
 					handleAddClick={this.handleAddClick}
+					handleAddObjectiveClick={this.handleAddObjectiveClick}
+				/>
+			</div>
+		);
+		return res;
+	}
+
+	*/
+
+		render() {
+		const { data, loading } = this.state;
+		const res = loading ? (
+			<p>Loading</p>
+		) : (
+			<div>
+				<Chart data={data} />
+				<Grid
+					data={data}
+					handleEditClick={this.handleEditClick}
+					handlePreviewClick={this.handlePreviewClick}
+					handleCompleteChange={this.handleCompleteChange}
+					handleDeleteClick={this.handleDeleteClick}
+					handleTextChange={this.handleTextChange}
+					handleAddClick={this.handleAddClick}
+					handleAddObjectiveClick={this.handleAddObjectiveClick}
 				/>
 			</div>
 		);

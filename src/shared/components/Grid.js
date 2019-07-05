@@ -4,6 +4,7 @@ import getRings from "../helper/getRings";
 import sortData from "../helper/sortData";
 import Title from "./Title";
 import Objectives from "./Objectives";
+import AddObjectiveBtn from "./AddObjectiveBtn";
 
 function Grid(props) {
 	const {
@@ -13,7 +14,8 @@ function Grid(props) {
 		handleCompleteChange,
 		handleDeleteClick,
 		handleTextChange,
-		handleAddClick
+		handleAddClick,
+		handleAddObjectiveClick
 	} = props;
 	const csv = sortData(data.csv);
 	const values = data.values;
@@ -21,18 +23,24 @@ function Grid(props) {
 	rings[0] = "Objectives";
 	const objectives = getObjectives(data.csv);
 
-		return (
+	return (
 		<React.Fragment>
 			<form>
 				{rings.map((ring, i) => {
 					return (
 						<React.Fragment key={"frag" + i}>
 							<Title key={"ring" + i}>{ring}</Title>
+							<AddObjectiveBtn
+								ringNo={i}
+								handleClick={handleAddObjectiveClick}
+							/>
 							<Objectives
 								objectives={objectives}
 								team={ring}
 								data={csv[i]}
-								isObjectivesList={ring=="Objectives" ? true : false}
+								isObjectivesList={
+									ring == "Objectives" ? true : false
+								}
 								handleEditClick={handleEditClick}
 								handlePreviewClick={handlePreviewClick}
 								handleCompleteChange={handleCompleteChange}
