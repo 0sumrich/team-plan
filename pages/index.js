@@ -1,6 +1,6 @@
 import React from 'react'
 function Home(){
-	return <div>Hello next</div>
+	return <div>Hello</div>
 }
 
 export default Home
