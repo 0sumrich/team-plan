@@ -1,0 +1,14 @@
+#svg {
+	display: block;
+	margin: auto;
+	font-family: 'Quicksand', sans-serif;
+	padding-top: 5px;
+}
+
+nav {
+	background: white !important;
+}
+
+a {
+	color: black !important;
+}
