@@ -2,18 +2,26 @@ import React from "react";
 import App, { Container } from "next/app";
 import Layout from "../components/Layout";
 
-export default class TeamPlan extends App {
-  // static async getInitialProps({ Component, router, ctx }) {
-  //   let pageProps = {} 
-  //   pageProps.user = ctx.req ? ctx.req.user : undefined;
-  //   return { pageProps };
-  // }
+class TeamPlan extends App {
+  static async getInitialProps({ Component, ctx }) {
+    let pageProps = {}
+
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx)
+    }
+
+    return { pageProps }
+  }
+
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps } = this.props
+
     return (
-        <Layout>
-          <Component {...pageProps}/>
-        </Layout>
-    );
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    )
   }
 }
+
+export default TeamPlan

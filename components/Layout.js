@@ -1,19 +1,3 @@
-/*
-<style>
-                body {
-                width: 95vw;
-                height: 95vh;
-                font-family: 'Quicksand', sans-serif;
-              }
-
-              #svg {
-                display: block;
-                margin: auto;
-                font-family: 'Quicksand', sans-serif;
-                padding-top: 5px;
-              }
-              </style>
-              */
 import React from "react";
 import Head from "next/head";
 import Header from "./Header";
