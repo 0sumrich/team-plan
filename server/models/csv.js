@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const csv = new Schema({
@@ -8,4 +8,4 @@ const csv = new Schema({
   complete: String
 }, {collection: 'csv'});
 
-export default IS_BROWSER ? mongoose.Document({}, csv) : mongoose.model('csv', csv);
+module.exports = mongoose.model('csv', csv);

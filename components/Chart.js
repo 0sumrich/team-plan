@@ -31,7 +31,7 @@ class Chart extends Component {
 	}
 
 	render() {
-		return <div>{this.props.test.data}</div>
+		return <div>{this.props.data.csv[0].objective}</div>
 	}
 }
 

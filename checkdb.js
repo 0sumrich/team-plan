@@ -24,32 +24,6 @@ const uriCurr = `mongodb://${process.env.USER_CURRENT}:${
 mongoose.connect(uriCurr, { useNewUrlParser: true });
 const db = mongoose.connection;
 
-// const app = express();
-// app.use(cors());
-// app.use(express.static("public"));
-// app.use(
-//   bodyParser.urlencoded({
-//     extended: true
-//   })
-// );
-// app.use(bodyParser.json());
-
-app.prepare().then(() => {
-  const server = express();
-
-  server.use(bodyParser.urlencoded({ extended: false }));
-  server.use(bodyParser.json());
-
-  server.get("/api", async (req, res) => {
-    getInitData().then(data => res.send(data))
-  });
-
-  server.get("*", (req, res) => {
-    return handle(req, res);
-  });
-
-  server.listen(port, err => {
-    if (err) throw err;
-    console.log(`Ready on http://localhost:${port}`);
-  });
-});
+getInitData().then(doc => {
+	console.log(doc)	
+})
