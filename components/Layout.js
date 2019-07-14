@@ -2,8 +2,9 @@ import React from "react";
 import Head from "next/head";
 import Header from "./Header";
 import "../styles/global.css";
+import "../styles/nprogress.css";
 
-const Layout = props => (
+const Layout = ({children}) => (
   <>
     <Head>
       <title>Team Plan</title>
@@ -14,7 +15,7 @@ const Layout = props => (
     </Head>
     <>
       <Header />
-      <main className="container">{props.children}</main>
+      <main className="container">{children}</main>
     </>
   </>
 );

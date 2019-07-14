@@ -3,12 +3,7 @@ import Chart from "../components/Chart";
 import fetch from "isomorphic-unfetch";
 
 function Home({ data }) {
-	return (
-		<div>
-			<p>Home Page</p>
-			<Chart data={data} />
-		</div>
-	);
+	return <Chart data={data} />;
 }
 
 Home.getInitialProps = async ({ req }) => {

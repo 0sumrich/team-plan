@@ -13,7 +13,6 @@ import {
 } from '../constants/constants';
   
 function draw(valuesArr, csv) {
-  
   const values = createCircles(valuesArr, valuesRadius);
   
   let svg = d3

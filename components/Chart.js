@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React, { useEffect, useContext } from "react";
 import draw from "../helper/draw";
-import fetch from 'isomorphic-unfetch';
 import * as d3 from "d3";
 
 // class Chart extends Component {
@@ -22,17 +21,12 @@ import * as d3 from "d3";
 // 	}
 // }
 
-class Chart extends Component {
-
-	componentWillUnmount() {
-		d3.select("svg")
-			.selectAll("*")
-			.remove();
-	}
-
-	render() {
-		return <div>{this.props.data.csv[0].objective}</div>
-	}
+function Chart({data}){
+	useEffect(() => {
+		draw(data.values, data.csv);
+	})
+	return <svg id="svg"></svg>
 }
+
 
 export default Chart;
