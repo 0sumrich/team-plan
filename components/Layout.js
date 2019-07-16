@@ -2,7 +2,6 @@ import React from "react";
 import Head from "next/head";
 import Header from "./Header";
 import "../styles/global.css";
-import "../styles/nprogress.css";
 
 const Layout = ({children}) => (
   <>

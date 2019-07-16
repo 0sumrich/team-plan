@@ -2,43 +2,77 @@ import React, { useState } from "react";
 import fetch from "isomorphic-unfetch";
 import Chart from "../components/Chart";
 import Grid from "../components/Grid";
-//import editClick from '../components/editFuncs/editClick'
-
-// handleEditClick(e) {
-// 		const data = this.state.data;
-// 		const id = e.target.id.slice("button".length);
-// 		const values = data.values;
-// 		let csv = data.csv;
-// 		const index = csv.map(o => o._id).indexOf(id);
-// 		csv[index].edit = true;
-// 		this.setState({ data: { csv: csv, values: values } });
-// 	}
-
-function editClick(e, useState){
-	const [data, setData] = useState;
-	const id = e.target.id.slice("button".length);
-	const values = data.values;
-	const csv = data.csv;
-	const index = csv.map(o => o._id).indexOf(id);
-	csv[index].edit = true;
-	setData({data: data})
-}
+import redraw from "../helper/redraw";
+import clear from "../helper/clear";
 
 function Edit(props) {
 	const initData = props.data;
+	const initDeleted = [];
 	const [data, setData] = useState(initData);
-	const {csv, values} = data;
-	
+	const [deleted, setDeleted] = useState(initDeleted);
+	const { csv, values } = data;
+	const getId = (e, str) => e.target.id.slice(str.length);
+	const getIndex = id => csv.map(o => o._id).indexOf(id);
+
 	const editClick = e => {
-		const id = e.target.id.slice("button".length);
-		const index = csv.map(o => o._id).indexOf(id);
+		const id = getId(e, "button");
+		const index = getIndex(id);
 		csv[index].edit = true;
-		setData({csv, values});
-	}
+		setData({ csv, values });
+	};
+
+	const previewClick = e => {
+		const id = getId(e, "button");
+		const index = getIndex(id);
+		csv[index].edit = false;
+		setData({ csv, values });
+		redraw(values, csv);
+	};
+
+	const textChange = e => {
+		const id = getId(e, "input");
+		const index = getIndex(id);
+		const original = csv[index].text;
+		csv.forEach(o => {
+			if (o.objective == original) {
+				o.objective = e.target.value;
+			}
+		});
+		csv[index].text = e.target.value;
+		setData({ csv, values });
+	};
+
+	const completeChange = e => {
+		const id = e.target.name;
+		const index = getIndex(id);
+		csv[index].complete = e.target.value;
+		setData({ csv, values });
+	};
+
+	const deleteClick = e => {
+		const id = getId(e, "delete");
+		const index = getIndex(id);
+		const toDelete = csv[index];
+		csv.splice(index, 1);
+		setData({csv, values})
+		setDeleted(prevDeleted => {
+			return [...prevDeleted, toDelete];
+		});
+		
+		redraw(values, csv);
+	};
+
 	return (
 		<>
 			<Chart data={data} />
-			<Grid data={data} handleEditClick={editClick}/>
+			<Grid
+				data={data}
+				handleEditClick={editClick}
+				handlePreviewClick={previewClick}
+				handleTextChange={textChange}
+				handleCompleteChange={completeChange}
+				handleDeleteClick={deleteClick}
+			/>
 		</>
 	);
 }
