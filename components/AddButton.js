@@ -9,16 +9,9 @@ function AddButton(props) {
 	}
 
 	return (
-		<Button
-			id={id}
-			bg={["#008000", "#008700"]}
-			color="white"
-			border="white"
-			handleClick={addClick}
-			form
-		>
-			Add
-		</Button>
+			<Button id={id} color="teal darken-2" handleClick={addClick} form>
+				Add
+			</Button>
 	);
 }
 

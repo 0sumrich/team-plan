@@ -8,8 +8,7 @@ const AddObjectiveBtn = ({ringNo, handleClick}) => {
       <div></div>
       <Button 
       id={"add-objective"}
-			bg={["#008000", "#008700"]}
-			color="white"
+			color="teal darken-2"
 			border="white"
       form
 			handleClick={handleClick}>Add Objective</Button>

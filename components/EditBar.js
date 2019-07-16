@@ -15,7 +15,7 @@ function EditBar(props) {
 	} = props;
 
 	return (
-		<div>
+		<div className="valign-wrapper edit-bar">
 			<Complete
 				complete={toBool(task.data.complete)}
 				id={task.data._id}
@@ -30,9 +30,9 @@ function EditBar(props) {
 				handleClick={handlePreviewClick}
 			/>
 			<style jsx>{`
-				div {
+				.edit-bar {
 					display: grid;
-					grid-template-columns: 1fr 1fr 1fr 1fr;
+					grid-template-columns: 1fr 1fr 1fr;
 				}
 			`}</style>
 		</div>

@@ -94,8 +94,12 @@ import PropTypes from "prop-types";
 
 function Button(props) {
   const { children, color, handleClick, id } = props;
+  let c = color
+  if(c.indexOf('darken')>0){
+    c += " white-text"
+  }
   return (
-    <a id={id} className={`btn ${color}`} onClick={e => handleClick(e)}>
+    <a id={id} className={`btn ${c}`} onClick={e => handleClick(e)}>
       {children}
     </a>
   );

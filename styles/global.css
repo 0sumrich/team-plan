@@ -22,3 +22,13 @@ form {
 .default {
 	background-color: #fafafa !important;
 }
+
+.radio {
+	display: inline;
+	margin: 0 5px;
+	padding: 3px;
+}
+
+.radio > span {
+	font-size: 0.75em;
+}

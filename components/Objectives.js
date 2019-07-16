@@ -42,7 +42,7 @@ const Objectives = ({
 		} else {
 			return (
 				<React.Fragment key={"objective" + i}>
-					<div className="o-container">
+					<div className="o-container valign-wrapper">
 						<p>{objective}</p>
 						<AddButton
 							objective={objective}

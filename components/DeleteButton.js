@@ -7,19 +7,11 @@ const DeleteButton = ({ id, handleClick }) => {
 		<Button
 			id={`delete${id}`}
 			handleClick={handleClick}
-			bg={["#f00", "#bf0000"]}
-			color={'white'}
-			border={'white'}
+			color={'red'}
 			form
 		>
 			Delete
 		</Button>
-		<style jsx>{`
-          #delete${id} {            
-            color: white;
-            margin: 100px;
-          }
-      `}</style>
 		</React.Fragment>
 	);
 };
