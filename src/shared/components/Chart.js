@@ -9,8 +9,7 @@ class Chart extends Component {
 	}
 
 	componentWillUnmount() {
-		d3
-			.select("svg")
+		d3.select("svg")
 			.selectAll("*")
 			.remove();
 	}
@@ -19,5 +18,11 @@ class Chart extends Component {
 		return <svg id="svg" />;
 	}
 }
+
+Chart.getInitialProps = async ({ req }) => {
+	const res = await fetch("/api");
+	const json = await res.json();
+	return { data: json };
+};
 
 export default Chart;
