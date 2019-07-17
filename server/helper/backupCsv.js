@@ -1,4 +1,4 @@
-export default function backupCsv(body, model, res) {
+module.exports = function backupCsv(body, model, res) {
   
   for (let i = 0; i < body.length; i++) {
     const obj = body[i];

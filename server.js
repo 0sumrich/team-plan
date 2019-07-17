@@ -8,7 +8,13 @@ const handle = app.getRequestHandler();
 const getInitData = require("./server/getInitData");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser");
+const csv = require("./server/models/csv");
+const Backup = require("./server/models/Backup");
+const addCsv = require("./server/helper/addCsv");
+const backupCsv = require("./server/helper/backupCsv");
+const deleteCsv = require("./server/helper/deleteCsv");
+const postCsv = require("./server/helper/postCsv");
 
 const uri =
   "mongodb://" +
@@ -24,16 +30,6 @@ const uriCurr = `mongodb://${process.env.USER_CURRENT}:${
 mongoose.connect(uriCurr, { useNewUrlParser: true });
 const db = mongoose.connection;
 
-// const app = express();
-// app.use(cors());
-// app.use(express.static("public"));
-// app.use(
-//   bodyParser.urlencoded({
-//     extended: true
-//   })
-// );
-// app.use(bodyParser.json());
-
 app.prepare().then(() => {
   const server = express();
 
@@ -41,7 +37,26 @@ app.prepare().then(() => {
   server.use(bodyParser.json());
 
   server.get("/api", async (req, res) => {
-    getInitData().then(data => res.send(data))
+    getInitData().then(data => res.send(data));
+  });
+
+  server.post("/update", (req, res) => {
+    postCsv(req.body, csv, res);
+  });
+
+  server.post("/backup", (req, res) => {
+    Backup.deleteMany({}, err => {
+      if (err) console.log(err);
+      backupCsv(req.body, Backup, res);
+    });
+  });
+
+  server.post("/delete", (req, res) => {
+    deleteCsv(req.body, csv, res);
+  });
+
+  server.post("/addTask", (req, res) => {
+    addCsv(req.body, csv, res);
   });
 
   server.get("*", (req, res) => {

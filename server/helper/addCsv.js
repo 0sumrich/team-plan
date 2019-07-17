@@ -1,4 +1,4 @@
-export default function addCsv(body, model, res) {
+module.exports = function addCsv(body, model, res) {
     let newCsv = new model();
     newCsv.text = body.text;
     newCsv.team = body.team;
