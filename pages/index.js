@@ -4,15 +4,15 @@ import fetch from "isomorphic-unfetch";
 
 function Home({ data }) {
 	// return <Chart data={data} />;
+	console.log(data)
 	return <p>hello</p>;
 }
 
 Home.getInitialProps = async ({ req }) => {
-	console.log(process.env.API_URL);
 	const baseUrl = process.env.API_URL;
 	const res = await fetch(baseUrl + "main");
-	const json = await res.json();
-	return { data: json };
+	const data = await res.json();
+	return {data}
 };
 
 export default Home;
