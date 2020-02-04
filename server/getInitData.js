@@ -12,12 +12,12 @@ async function getInitData() {
 		from tasks
 		inner join teams on tasks.team = teams.id
 		inner join objectives on tasks.objective = objectives.id;
-	`
+	`;
 	const tasks = await db.all(sql);
-	console.log(tasks)
+	console.log(tasks);
 	const objectives = await db.all("select * from objectives;");
 	const values = await db.all("select * from library_values;");
-	return {tasks: tasks, objectives: objectives, values: values};
+	return { tasks: tasks, objectives: objectives, values: values };
 }
 
 module.exports = getInitData;

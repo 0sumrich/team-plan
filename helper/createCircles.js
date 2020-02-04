@@ -1,6 +1,6 @@
 export default function createCircles (valuesArray, r) {
-  const values = valuesArray.map(v => v.text);
-  const ids = valuesArray.map(v => v._id);
+  const values = valuesArray.map(v => v.value);
+  const ids = valuesArray.map(v => v.id);
       let nodes = [{'id': ids.shift(), 'x': r, 'y': r, value: values.shift()}], 
          width = (r * 2),
          height = (r * 2),
