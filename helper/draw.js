@@ -121,8 +121,8 @@ function draw(data) {
       const height = text.node().getBBox().height - 12;
       text.attr("transform", "translate(0, " + height / 2 / -1 + " )");
     });
-  //const buildData = sortData(csv);
-  //build(buildData, svg);
+  const buildData = sortData(objectives, tasks);
+  build(buildData, svg);
 }
 
 export default draw;

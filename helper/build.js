@@ -24,6 +24,7 @@ function darker(col){
 export default function build(d, svg){
   
   const objectives = d[0];
+  
   const radii=getRadii(d.length, radius, innerMost);
   
   fontSize.domain([1, d.length]);
