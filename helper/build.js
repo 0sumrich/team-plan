@@ -92,10 +92,7 @@ export default function build(d, svg) {
       .append("textPath")
       .attr("href", d => "#seg" + d.data.id)
       .attr("font-size", fontSize(i) + "em")
-      .text(d => {
-        console.log(d.data.task);
-        return d.data.task;
-      })
+      .text(d => d.data.task)
       .each(function(d) {
         chop(this, d, radii[i], darker(scheme[i + 1]));
       });
