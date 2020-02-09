@@ -14,7 +14,6 @@ async function getInitData() {
 		inner join objectives on tasks.objective = objectives.id;
 	`;
 	const tasks = await db.all(sql);
-	console.log(tasks);
 	const objectives = await db.all("select * from objectives;");
 	const values = await db.all("select * from library_values;");
 	return { tasks: tasks, objectives: objectives, values: values };

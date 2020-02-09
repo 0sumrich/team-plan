@@ -47,7 +47,7 @@ export default function sortData(inObjectives, tasks) {
     }
     return o;
   });
-
+  //check for the "" then re add it at the beginning - it represents the objectives ring
   const rings = getRings(data).filter(x => x!="")
   rings.splice(0, 0, "")
   
