@@ -8,19 +8,20 @@ const Task = ({
 	handlePreviewClick,
 	handleCompleteChange,
 	handleDeleteClick,
-	handleTextChange
-}) => {
+	handleTextChange,
+	objective
+}) => {	
 	const edit = task.data.edit;
 	const res = edit ? (
 		<input
 			type="text"
 			className="task"
 			onChange={handleTextChange}
-			id={`input${task.data._id}`}
-			value={task.data.text}
+			id={`input${task.data.id}`}
+			value={objective ? task.data.objective : task.data.task}
 		/>
 	) : (
-		<p style={{ fontSize: "0.75em" }}>{task.data.text}</p>
+		<p style={{ fontSize: "0.75em" }}>{objective ? task.data.objective : task.data.task}</p>
 	);
 	const button = edit ? (
 		<EditBar
@@ -31,7 +32,7 @@ const Task = ({
 		/>
 	) : (
 		<Button
-			id={`button${task.data._id}`}
+			id={`button${task.data.id}`}
 			handleClick={handleEditClick}
 			form
 		>

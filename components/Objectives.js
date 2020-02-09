@@ -20,7 +20,7 @@ const Objectives = ({
 		const filtered = data.filter(k => k.data.objective == objective);
 		if (isObjectivesList) {
 			return (
-				<React.Fragment key={"task" + i}>
+				<React.Fragment key={"objective" + i}>
 					<div>
 						<Task
 							task={data[i]}
@@ -29,6 +29,7 @@ const Objectives = ({
 							handleCompleteChange={handleCompleteChange}
 							handleDeleteClick={handleDeleteClick}
 							handleTextChange={handleTextChange}
+							objective
 						/>
 					</div>
 					<style jsx>{`
@@ -41,7 +42,7 @@ const Objectives = ({
 			);
 		} else {
 			return (
-				<React.Fragment key={"objective" + i}>
+				<React.Fragment key={"task" + i}>
 					<div className="o-container valign-wrapper">
 						<p>{objective}</p>
 						<AddButton
