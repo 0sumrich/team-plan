@@ -17,12 +17,12 @@ function Grid(props) {
 		handleAddClick,
 		handleAddObjectiveClick
 	} = props;
-	const csv = sortData(data.csv);
-	const values = data.values;
-	const rings = getRings(data.csv);
-	rings[0] = "Objectives";
-	const objectives = getObjectives(data.csv);
+	const { objectives, tasks, values } = data;
 
+	const csv = sortData(objectives, tasks);
+	const rings = getRings(tasks);
+	rings.splice(0, 0, "Objectives");
+	
 	return (
 		<React.Fragment>
 			<form>
@@ -60,6 +60,7 @@ function Grid(props) {
 			`}</style>
 		</React.Fragment>
 	);
+	// return null;
 }
 
 export default Grid;

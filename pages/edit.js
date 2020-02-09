@@ -7,14 +7,15 @@ import redraw from "../helper/redraw";
 import clear from "../helper/clear";
 import addObjective from "../helper/addObjective";
 
-function Edit(props) {
-	const initData = props.data;
-	const initDeleted = [];
-	const initBackup = {};
-	const [data, setData] = useState(initData);
-	const [deleted, setDeleted] = useState(initDeleted);
-	const [backup, setBackup] = useState(initBackup);
-	const { csv, values } = data;
+function Edit({ data }) {
+	const { tasks, objectives, values } = data;
+	// const initData = props.data;
+	// const initDeleted = [];
+	// const initBackup = {};
+	// const [data, setData] = useState(initData);
+	// const [deleted, setDeleted] = useState(initDeleted);
+	// const [backup, setBackup] = useState(initBackup);
+	// const { csv, values } = data;
 
 	const getId = (e, str) => e.target.id.slice(str.length);
 	const getIndex = id => csv.map(o => o._id).indexOf(id);
@@ -181,11 +182,36 @@ function Edit(props) {
 			} else {
 				//untested
 				getData().then(res => {
-					setData(res)
-				})
+					setData(res);
+				});
 			}
 		});
 	};
+
+	// return (
+	// 	<Fragment>
+	// 		<Chart data={data} />
+	// 		<div style={{ position: "fixed" }}>
+	// 			<Button id="save" color="blue" handleClick={saveClick}>
+	// 				Save
+	// 			</Button>
+	// 			<Button id="clear" color="red" handleClick={null}>
+	// 				Clear
+	// 			</Button>
+	// 		</div>
+	// 		<Grid
+	// 			data={data}
+	// 			handleEditClick={editClick}
+	// 			handlePreviewClick={previewClick}
+	// 			handleTextChange={textChange}
+	// 			handleCompleteChange={completeChange}
+	// 			handleDeleteClick={deleteClick}
+	// 			handleAddObjectiveClick={addObjectiveClick}
+	// 			handleAddClick={addClick}
+	// 			handleSaveClick={saveClick}
+	// 		/>
+	// 	</Fragment>
+	// );
 
 	return (
 		<Fragment>
@@ -209,15 +235,16 @@ function Edit(props) {
 				handleAddClick={addClick}
 				handleSaveClick={saveClick}
 			/>
+			;
 		</Fragment>
 	);
 }
 
 Edit.getInitialProps = async ({ req }) => {
-	const baseUrl = req ? `${req.protocol}://${req.get("Host")}` : "";
-	const res = await fetch(baseUrl + "/api");
-	const json = await res.json();
-	return { data: json };
+	const baseUrl = process.env.API_URL;
+	const res = await fetch(baseUrl + "main");
+	const data = await res.json();
+	return { data };
 };
 
 export default Edit;
