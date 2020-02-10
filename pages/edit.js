@@ -6,25 +6,16 @@ import Button from "../components/Button";
 import redraw from "../helper/redraw";
 import clear from "../helper/clear";
 import addObjective from "../helper/addObjective";
+import sortData from "../helper/sortData";
 
-function Edit({ data }) {
-	const { tasks, objectives, values } = data;
-	// const initData = props.data;
-	// const initDeleted = [];
-	// const initBackup = {};
-	// const [data, setData] = useState(initData);
-	// const [deleted, setDeleted] = useState(initDeleted);
-	// const [backup, setBackup] = useState(initBackup);
-	// const { csv, values } = data;
-
-	const getId = (e, str) => e.target.id.slice(str.length);
-	const getIndex = id => csv.map(o => o._id).indexOf(id);
+function Edit(props) {
+	const { tasks, objectives, values } = props.data;
+	const [data, setData] = useState(props.data)
+	const getTargetData = e => JSON.parse(e.target.dataset.task)
 
 	const editClick = e => {
-		const id = getId(e, "button");
-		const index = getIndex(id);
-		csv[index].edit = true;
-		setData({ csv, values });
+		const d = getTargetData(e)
+		console.log(d)
 	};
 
 	const previewClick = e => {
@@ -215,7 +206,7 @@ function Edit({ data }) {
 
 	return (
 		<Fragment>
-			<Chart data={data} />
+			<Chart data={props.data} />
 			<div style={{ position: "fixed" }}>
 				<Button id="save" color="blue" handleClick={saveClick}>
 					Save
@@ -227,13 +218,6 @@ function Edit({ data }) {
 			<Grid
 				data={data}
 				handleEditClick={editClick}
-				handlePreviewClick={previewClick}
-				handleTextChange={textChange}
-				handleCompleteChange={completeChange}
-				handleDeleteClick={deleteClick}
-				handleAddObjectiveClick={addObjectiveClick}
-				handleAddClick={addClick}
-				handleSaveClick={saveClick}
 			/>
 			;
 		</Fragment>

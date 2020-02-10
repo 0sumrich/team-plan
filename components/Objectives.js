@@ -25,7 +25,6 @@ const Objectives = ({
 					<div>
 						<Task
 							task={data[i]}
-							handleEditClick={handleEditClick}
 							handlePreviewClick={handlePreviewClick}
 							handleCompleteChange={handleCompleteChange}
 							handleDeleteClick={handleDeleteClick}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Button from "./Button";
 import EditBar from "./EditBar";
 
@@ -10,8 +10,9 @@ const Task = ({
 	handleDeleteClick,
 	handleTextChange,
 	objective
-}) => {	
-	const edit = task.data.edit;
+}) => {
+	const [edit, setEdit] = useState(false)
+	// const edit = task.data.edit;
 	const res = edit ? (
 		<input
 			type="text"
@@ -33,7 +34,8 @@ const Task = ({
 	) : (
 		<Button
 			id={`button${task.data.id}`}
-			handleClick={handleEditClick}
+			data={task.data}
+			handleClick={() => setEdit(!edit)}
 			form
 		>
 			Edit

@@ -2,34 +2,7 @@ import * as d3 from "d3";
 import arc from "./arc";
 import getRings from "./getRings";
 import getObjectives from "./getObjectives";
-
-// objective
-// id: 0
-// objective: "Staff skills are enhanced"
-
-// task
-// id: 0
-// task: ""
-// team: "Pillar 0"
-// objective: "Maximum use made of resources"
-// complete: "FALSE"
-
-function mergeData(objectives, tasks) {
-  let nextId = Math.max(...tasks.map(o => o.id)) + 1;
-  let res = [...tasks];
-  for (let i = 0; i < objectives.length; i++) {
-    const o = {
-      id: nextId,
-      task: "",
-      team: "",
-      objective: objectives[i].objective,
-      complete: "FALSE"
-    };
-    res.push(o);
-    nextId++;
-  }
-  return res;
-}
+import mergeData from './mergeData'
 
 export default function sortData(inObjectives, tasks) {
   const data = mergeData(inObjectives, tasks);

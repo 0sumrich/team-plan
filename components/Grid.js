@@ -9,7 +9,6 @@ import AddObjectiveBtn from "./AddObjectiveBtn";
 function Grid(props) {
 	const {
 		data,
-		handleEditClick,
 		handlePreviewClick,
 		handleCompleteChange,
 		handleDeleteClick,
@@ -27,6 +26,7 @@ function Grid(props) {
 		<React.Fragment>
 			<form>
 				{rings.map((ring, i) => {
+					const isObjectivesList = ring == "Objectives" ? true : false
 					return (
 						<React.Fragment key={"frag" + i}>
 							<Title key={"ring" + i}>{ring}</Title>
@@ -38,10 +38,7 @@ function Grid(props) {
 								objectives={objectives}
 								team={ring}
 								data={csv[i]}
-								isObjectivesList={
-									ring == "Objectives" ? true : false
-								}
-								handleEditClick={handleEditClick}
+								isObjectivesList={isObjectivesList}
 								handlePreviewClick={handlePreviewClick}
 								handleCompleteChange={handleCompleteChange}
 								handleDeleteClick={handleDeleteClick}
