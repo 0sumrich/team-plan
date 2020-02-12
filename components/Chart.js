@@ -7,6 +7,7 @@ function darker(col) {
 }
 
 function Chart({ data, edit }) {
+  const [editState, setEdit] = useState(null);
   useEffect(() => {
     draw(data);
     if (edit) {
@@ -35,13 +36,15 @@ function Chart({ data, edit }) {
           );
         })
         .on("click", e => {
-          debugger;
+          setEdit(e)
         });
     }
   });
+  const edit = null;
   return (
     <Fragment>
       <svg id="svg"></svg>
+      {edit}
     </Fragment>
   );
 }
