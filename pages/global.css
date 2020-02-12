@@ -32,7 +32,3 @@ form {
 .radio > span {
 	font-size: 0.75em;
 }
-
-.active {
-  background: grey !important;
-}
