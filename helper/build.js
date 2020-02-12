@@ -32,11 +32,12 @@ export default function build(d, svg) {
     .data(objectives)
     .enter()
     .append("g")
+    .attr('data-objective', d.data)
+    .attr('point-events', 'fill')
     .attr("class", "arc")
     .append("path")
     .attr("id", d => "seg" + d.data.id)
     .attr("d", arc(radii, 0))
-
     .style("fill", scheme[1])
 
   svg
