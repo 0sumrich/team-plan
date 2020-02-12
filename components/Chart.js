@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import draw from "../helper/draw";
 import * as d3 from "d3";
 
@@ -8,12 +8,19 @@ function Chart({ data, edit }) {
     if (edit) {
       d3.selectAll('g[class^="arc"]')
         .style("cursor", "pointer")
+        .on('mouseover', function(){
+        d3.select(this).style('fill', 'red')
+      })
         .on("click", e => {
           debugger;
         });
     }
   });
-  return <svg id="svg"></svg>;
+  return (
+    <Fragment>
+      <svg id="svg"></svg>
+    </Fragment>
+    )
 }
 
 export default Chart;
