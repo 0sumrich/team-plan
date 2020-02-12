@@ -3,8 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 const NavTab = ({ to, children }) => {
-  const router = useRouter();
-  console.log(router.pathname)
+  const router = useRouter();  
   return (
     <li className={to == router.pathname ? "active" : ""}>
       <Link href={to}>
