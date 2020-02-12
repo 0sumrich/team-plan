@@ -6,6 +6,10 @@ function darker(col) {
   return d3.color(col).darker([0.5]);
 }
 
+function Popup({data}){
+  return null;
+}
+
 function Chart({ data, edit }) {
   const [editState, setEdit] = useState(null);
   useEffect(() => {
@@ -36,15 +40,15 @@ function Chart({ data, edit }) {
           );
         })
         .on("click", e => {
-          setEdit(e)
+          setEdit(e.data)
         });
     }
   });
-  const edit = null;
+  const popup = editState ? <Popup data={editState} /> : null;
   return (
     <Fragment>
       <svg id="svg"></svg>
-      {edit}
+      {popup}
     </Fragment>
   );
 }
