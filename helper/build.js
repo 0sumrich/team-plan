@@ -25,7 +25,8 @@ export default function build(d, svg) {
 
   fontSize.domain([1, d.length]);
   y.domain([1, d.length]);
-
+  
+  //objectives
   svg
     .selectAll(".arc")
     .data(objectives)
@@ -35,7 +36,8 @@ export default function build(d, svg) {
     .append("path")
     .attr("id", d => "seg" + d.data.id)
     .attr("d", arc(radii, 0))
-    .style("fill", scheme[1]);
+    .style("fill", scheme[1])
+    .on('click', ()=>console.log('click'));
 
   svg
     .selectAll(".oText")
@@ -54,9 +56,9 @@ export default function build(d, svg) {
     .attr("font-size", "0.4em")
     .text(d => d.data.objective);
 
+  //rest  
   for (let i = 1; i < d.length; i++) {
     let ring = d[i];
-
     svg
       .selectAll(".arc" + i.toString())
       .data(ring)
