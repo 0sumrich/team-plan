@@ -36,8 +36,8 @@ export default function build(d, svg) {
     .append("path")
     .attr("id", d => "seg" + d.data.id)
     .attr("d", arc(radii, 0))
+
     .style("fill", scheme[1])
-    .on('click', ()=>console.log('click'));
 
   svg
     .selectAll(".oText")
