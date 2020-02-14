@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.9.2",
+    "clsx": "^1.1.0",
     "d3": "^5.15.0",
     "dotenv": "^8.2.0",
     "isomorphic-unfetch": "^3.0.0",

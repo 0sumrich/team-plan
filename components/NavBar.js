@@ -10,21 +10,23 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import clsx from "clsx";
 
 const useStyles = makeStyles(theme => {
+  console.log(theme.spacing(2))
   return {
     root: {
       flexGrow: 1
-    },
-    active: {
-      background: theme.palette.grey[200]
     },
     ul: {
       listStyleType: "none"
     },
     li: {
       display: "inline",
-      padding: theme.spacing(2),
+      padding: theme.spacing(2)
+      },
+    active: {
+      background: theme.palette.grey[200]
     }
   };
 });
@@ -41,9 +43,12 @@ const NavBar = () => {
 
   const NavTab = ({ to, children }) => {
     const router = useRouter();
-    const active = to == router.pathname ? "active" : "";
+    const classList = clsx([
+      classes.li,
+      to == router.pathname ? classes.active : false
+    ]);
     return (
-      <li className={`${classes.li} ${active}`}>
+      <li className={classList}>
         <Link href={to}>
           <a>{children}</a>
         </Link>
@@ -53,12 +58,10 @@ const NavBar = () => {
   return (
     <div className={classes.root}>
       <AppBar position="static" color="transparent">
-        <Container>
           <ul className={classes.ul}>
             <NavTab to="/">Home</NavTab>
             <NavTab to="/edit">Edit</NavTab>
           </ul>
-        </Container>
       </AppBar>
     </div>
   );
