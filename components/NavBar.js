@@ -5,6 +5,7 @@ import Menu from "@material-ui/core/Menu";
 import Button from "./Button";
 import AppBar from "@material-ui/core/AppBar";
 import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
 import { saveSvgAsPng } from "save-svg-as-png";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -13,7 +14,6 @@ import Tab from "@material-ui/core/Tab";
 import clsx from "clsx";
 
 const useStyles = makeStyles(theme => {
-  console.log(theme.spacing(2))
   return {
     root: {
       flexGrow: 1
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => {
     li: {
       display: "inline",
       padding: theme.spacing(2)
-      },
+    },
     active: {
       background: theme.palette.grey[200]
     }
@@ -58,10 +58,10 @@ const NavBar = () => {
   return (
     <div className={classes.root}>
       <AppBar position="static" color="transparent">
-          <ul className={classes.ul}>
-            <NavTab to="/">Home</NavTab>
-            <NavTab to="/edit">Edit</NavTab>
-          </ul>
+        <ul className={classes.ul}>
+          <NavTab to="/">Home</NavTab>
+          <NavTab to="/edit">Edit</NavTab>
+        </ul>
       </AppBar>
     </div>
   );
