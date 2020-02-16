@@ -10,12 +10,12 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-export default function Popup({ el, data, handleClose }) {
-	console.log(data)
+export default function Popup({ el, data, handleClose, clicks }) {
+	
 	const classes = useStyles();
 	const open = Boolean(el);
 	const id = open ? "simple-popover" : undefined;
-
+	
 	return (
 		<Popover
 			id={id}
@@ -31,7 +31,7 @@ export default function Popup({ el, data, handleClose }) {
 				horizontal: "center"
 			}}
 		>
-			<PopupBtns />
+			<PopupBtns clicks={clicks}/>
 		</Popover>
 	);
 }
