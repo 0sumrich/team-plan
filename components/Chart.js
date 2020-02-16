@@ -8,7 +8,7 @@ function darker(col) {
 }
 
 function getNewId(arr) {
-  return d3.max(arr.map(o => o.id));
+  return d3.max(arr.map(o => o.id)) + 1;
 }
 
 function makeData(objectives, tasks, values) {
@@ -20,13 +20,18 @@ function Chart({ data, edit }) {
   const [popupEl, setPopupEl] = useState(null);
   const [objectives, setObjectives] = useState(data.objectives);
   const [tasks, setTasks] = useState(data.tasks);
+  const [objectivesDeleteList, setObjectivesDeleteList] = useState([]);
+  const [tasksDeleteList, setTasksDeleteList] = useState([]);
+
   useEffect(() => {
     d3.select("svg")
       .selectAll("*")
       .remove();
 
     draw(makeData(objectives, tasks, data.values));
+  }, [objectives, tasks]);
 
+  useEffect(() => {
     if (edit) {
       d3.selectAll('g[class^="arc"]')
         .style("cursor", "pointer")
@@ -53,6 +58,7 @@ function Chart({ data, edit }) {
           );
         })
         .on("click", function(e) {
+          console.log(d3.select(this).node());
           setPopupEl(d3.select(this).node());
           setEditData(e.data);
         });
@@ -60,11 +66,54 @@ function Chart({ data, edit }) {
   });
 
   const addClick = () => {
-    // {id: 21, task: "Stock knowledge", team: "Pillar 4", objective: "Staff skills are enhanced", complete: "FALSE"}
-    const type = editData.team == "" ? "objective" : "tasks";
+    const type = editData.team == "" ? "objective" : "task";
+
     if (type == "objective") {
-      setObjectives(prev => [...prev, { id: getNewId, objective: "edit me" }]);
-      setPopupEl(null)
+      setObjectives(prev => [
+        ...prev,
+        { id: getNewId, objective: "edit me", isNew: true }
+      ]);
+
+      const newTasks = [...new Set(tasks.map(o => o.team))].map((team, i) => ({
+        id: getNewId(tasks) + i,
+        task: "edit me",
+        team: team,
+        objective: "edit me",
+        complete: "FALSE",
+        isNew: true
+      }));
+
+      setTasks(prev => [...prev, ...newTasks]);
+
+      setPopupEl(null);
+    } else {
+      const newTask = {
+        id: getNewId(tasks),
+        task: "edit me",
+        team: editData.team,
+        objective: editData.objective,
+        complete: "FALSE",
+        isNew: true
+      };
+
+      setTasks(prev => [...prev, newTask]);
+      setPopupEl(null);
+    }
+  };
+
+  const deleteClick = () => {
+    const type = editData.team == "" ? "objective" : "task";
+
+    if (type == "objective") {
+      const filterer = o => o.objective !== editData.objective;
+      const tasksToDelete = tasks.filter(o => o.objective===editData.objective)
+      const currObjectives = objectives.filter(filterer);
+      const currTasks = tasks.filter(filterer);
+      setObjectives(currObjectives);
+      setTasks(currTasks);
+      setObjectivesDeleteList(prev => [...prev, editData])
+      setTasksDeleteList(prev => [...prev, tasksToDelete])
+      setPopupEl(null);
     }
   };
 
@@ -76,7 +125,8 @@ function Chart({ data, edit }) {
         data={editData}
         handleClose={() => setPopupEl(null)}
         clicks={{
-          add: addClick
+          add: addClick,
+          delete: deleteClick
         }}
       />
     </Fragment>

@@ -37,9 +37,13 @@ function PopupBtns({ data, clicks }) {
 
 	return (
 		<div>
-			<Btn type="add" handleClick={clicks.add}>Add</Btn>
+			<Btn type="add" handleClick={clicks.add}>
+				Add
+			</Btn>
 			<Btn type="edit">Edit</Btn>
-			<Btn type="delete">Delete</Btn>
+			<Btn type="delete" handleClick={clicks.delete}>
+				Delete
+			</Btn>
 		</div>
 	);
 }
