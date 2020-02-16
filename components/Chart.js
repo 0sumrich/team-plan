@@ -58,7 +58,6 @@ function Chart({ data, edit }) {
           );
         })
         .on("click", function(e) {
-          console.log(d3.select(this).node());
           setPopupEl(d3.select(this).node());
           setEditData(e.data);
         });
@@ -103,16 +102,25 @@ function Chart({ data, edit }) {
 
   const deleteClick = () => {
     const type = editData.team == "" ? "objective" : "task";
+    const filterer = o => o.objective !== editData.objective;
 
     if (type == "objective") {
-      const filterer = o => o.objective !== editData.objective;
-      const tasksToDelete = tasks.filter(o => o.objective===editData.objective)
+      const tasksToDelete = tasks.filter(
+        o => o.objective === editData.objective
+      );
       const currObjectives = objectives.filter(filterer);
       const currTasks = tasks.filter(filterer);
       setObjectives(currObjectives);
       setTasks(currTasks);
-      setObjectivesDeleteList(prev => [...prev, editData])
-      setTasksDeleteList(prev => [...prev, tasksToDelete])
+      setObjectivesDeleteList(prev => [...prev, editData]);
+      setTasksDeleteList(prev => [...prev, ...tasksToDelete]);
+      setPopupEl(null);
+    } else {
+      const currTasks = [...tasks]
+      const i = currTasks.map(o => o.id).indexOf(editData.id)
+      currTasks.splice(i,1)
+      setTasks(currTasks)
+      setTasksDeleteList(prev => [...prev, editData]);
       setPopupEl(null);
     }
   };
