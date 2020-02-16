@@ -1,6 +1,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 import draw from "../helper/draw";
 import Popup from "./popup";
+import EditForm from "./editForm";
 import * as d3 from "d3";
 
 function darker(col) {
@@ -22,7 +23,7 @@ function Chart({ data, edit }) {
   const [tasks, setTasks] = useState(data.tasks);
   const [objectivesDeleteList, setObjectivesDeleteList] = useState([]);
   const [tasksDeleteList, setTasksDeleteList] = useState([]);
-
+  const [editFormOpen, setEditFormOpen] = useState(false);
   useEffect(() => {
     d3.select("svg")
       .selectAll("*")
@@ -116,10 +117,10 @@ function Chart({ data, edit }) {
       setTasksDeleteList(prev => [...prev, ...tasksToDelete]);
       setPopupEl(null);
     } else {
-      const currTasks = [...tasks]
-      const i = currTasks.map(o => o.id).indexOf(editData.id)
-      currTasks.splice(i,1)
-      setTasks(currTasks)
+      const currTasks = [...tasks];
+      const i = currTasks.map(o => o.id).indexOf(editData.id);
+      currTasks.splice(i, 1);
+      setTasks(currTasks);
       setTasksDeleteList(prev => [...prev, editData]);
       setPopupEl(null);
     }
@@ -134,8 +135,17 @@ function Chart({ data, edit }) {
         handleClose={() => setPopupEl(null)}
         clicks={{
           add: addClick,
-          delete: deleteClick
+          delete: deleteClick,
+          edit: () => {
+            setEditFormOpen(true);
+            setPopupEl(null);
+          }
         }}
+      />
+      <EditForm
+        data={editData}
+        open={editFormOpen}
+        handleClose={() => setEditFormOpen(false)}
       />
     </Fragment>
   );

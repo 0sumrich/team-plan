@@ -40,7 +40,9 @@ function PopupBtns({ data, clicks }) {
 			<Btn type="add" handleClick={clicks.add}>
 				Add
 			</Btn>
-			<Btn type="edit">Edit</Btn>
+			<Btn type="edit" handleClick={clicks.edit}>
+				Edit
+			</Btn>
 			<Btn type="delete" handleClick={clicks.delete}>
 				Delete
 			</Btn>
