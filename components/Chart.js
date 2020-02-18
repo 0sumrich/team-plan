@@ -126,7 +126,7 @@ function Chart({ data, edit }) {
       setPopupEl(null);
     }
   };
-  
+  console.log(tasks.filter(o => o.updated===true))
   return (
     <Fragment>
       <svg id="svg" />
@@ -154,15 +154,22 @@ function Chart({ data, edit }) {
               ...editData,
               objective: e.target.value
             });
+          },
+          task: e => {
+            setEditData({
+              ...editData,
+              task: e.target.value
+            });
           }
         }}
         handleSubmit={{
           objective: () => {
-            // debugger;
-            const i = objectives.map(o => o.objective).indexOf(originalObjective);
-            editData.updated = true;
+            const i = objectives
+              .map(o => o.objective)
+              .indexOf(originalObjective);
             const currObjectives = [...objectives];
-            currObjectives[i].objective=editData.objective
+            currObjectives[i].objective = editData.objective;
+            currObjectives[i].updated = true
             const currTasks = [...tasks];
             currTasks.forEach(task => {
               if (task.objective === originalObjective)
@@ -171,7 +178,17 @@ function Chart({ data, edit }) {
             setTasks(currTasks);
             setObjectives(currObjectives);
             setEditFormOpen(false);
-            setOriginalObjective(null);            
+            setOriginalObjective(null);
+          },
+          task: () => {            
+            const currTasks = [...tasks];
+            const i = currTasks.map(o => o.id).indexOf(editData.id);
+            currTasks[i].task = editData.task;
+            currTasks[i].complete = editData.complete;
+            currTasks[i].updated = true;
+            setTasks(currTasks);
+            setEditFormOpen(false);
+            setOriginalObjective(null);
           }
         }}
       />

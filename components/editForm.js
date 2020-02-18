@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
@@ -18,8 +18,8 @@ function getModalStyle() {
 const useStyles = makeStyles(theme => ({
 	root: {
 		"& .MuiTextField-root": {
-			margin: `${theme.spacing(1)}px 0px`, 
-		},
+			margin: `${theme.spacing(1)}px 0px`
+		}
 	},
 	paper: {
 		position: "absolute",
@@ -33,7 +33,13 @@ const useStyles = makeStyles(theme => ({
 
 // {id: 21, task: "Stock knowledge", team: "Pillar 4", objective: "Staff skills are enhanced", complete: "FALSE"}
 
-function EditForm({ data, open, handleClose, handleInputChange, handleSubmit }) {
+function EditForm({
+	data,
+	open,
+	handleClose,
+	handleInputChange,
+	handleSubmit
+}) {
 	if (!data) {
 		return null;
 	}
@@ -41,7 +47,12 @@ function EditForm({ data, open, handleClose, handleInputChange, handleSubmit }) 
 	const classes = useStyles();
 	// getModalStyle is not a pure function, we roll the style only on the first render
 	const [modalStyle] = React.useState(getModalStyle);
-	const type = data.team == "" ? "objective" : "task";
+	const type = data.team == "" ? "objective" : "task";	
+	useEffect(() =>{
+		if(open){			
+			document.querySelector('input').focus()
+		}
+	})
 	return (
 		<Modal
 			disablePortal
@@ -51,16 +62,20 @@ function EditForm({ data, open, handleClose, handleInputChange, handleSubmit }) 
 			onClose={handleClose}
 		>
 			<div style={modalStyle} className={classes.paper}>
-				<form className={classes.root} noValidate autoComplete="off" onSubmit={e => {
-					e.preventDefault()
-					handleSubmit[type]()
-				}}>
+				<form
+					className={classes.root}
+					noValidate
+					autoComplete="off"
+					onSubmit={e => {
+						e.preventDefault();
+						handleSubmit[type]();
+					}}
+				>
 					{type == "objective" ? (
 						<Fragment>
 							<TextField
 								required
-								fullWidth
-								autoFocus={true}
+								fullWidth								
 								id="standard-required"
 								label="Objective"
 								defaultValue={data.objective}
@@ -75,12 +90,25 @@ function EditForm({ data, open, handleClose, handleInputChange, handleSubmit }) 
 							</Button>
 						</Fragment>
 					) : (
-						<TextField
-							required
-							id="standard-required"
-							label="Task"
-							defaultValue={data.task}
-						/>
+						<Fragment>
+							<p>{`Team: ${data.team}`}</p>
+							<p>{`Objective: ${data.objective}`}</p>
+							<TextField
+								required
+								fullWidth								
+								id="standard-required"
+								label="Task"
+								defaultValue={data.task}
+								onChange={handleInputChange.task}
+							/>
+							<Button
+								variant="outlined"
+								type="submit"
+								className={classes.root}
+							>
+								Submit
+							</Button>
+						</Fragment>
 					)}
 				</form>
 			</div>
