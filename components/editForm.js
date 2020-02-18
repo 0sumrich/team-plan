@@ -1,6 +1,8 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 function getModalStyle() {
 	const top = 50;
@@ -14,6 +16,11 @@ function getModalStyle() {
 }
 
 const useStyles = makeStyles(theme => ({
+	root: {
+		"& .MuiTextField-root": {
+			margin: `${theme.spacing(1)}px 0px`, 
+		},
+	},
 	paper: {
 		position: "absolute",
 		width: 400,
@@ -24,11 +31,17 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-function EditForm({ data, open, handleClose }) {
+// {id: 21, task: "Stock knowledge", team: "Pillar 4", objective: "Staff skills are enhanced", complete: "FALSE"}
+
+function EditForm({ data, open, handleClose, handleInputChange, handleSubmit }) {
+	if (!data) {
+		return null;
+	}
+	const [currData, setCurrData] = useState(data);
 	const classes = useStyles();
 	// getModalStyle is not a pure function, we roll the style only on the first render
 	const [modalStyle] = React.useState(getModalStyle);
-	//disablePortal
+	const type = data.team == "" ? "objective" : "task";
 	return (
 		<Modal
 			disablePortal
@@ -38,11 +51,38 @@ function EditForm({ data, open, handleClose }) {
 			onClose={handleClose}
 		>
 			<div style={modalStyle} className={classes.paper}>
-				<h2 id="simple-modal-title">Text in a modal</h2>
-				<p id="simple-modal-description">
-					Duis mollis, est non commodo luctdfdfasd porttitor
-					ligula.
-				</p>
+				<form className={classes.root} noValidate autoComplete="off" onSubmit={e => {
+					e.preventDefault()
+					handleSubmit[type]()
+				}}>
+					{type == "objective" ? (
+						<Fragment>
+							<TextField
+								required
+								fullWidth
+								autoFocus={true}
+								id="standard-required"
+								label="Objective"
+								defaultValue={data.objective}
+								onChange={handleInputChange.objective}
+							/>
+							<Button
+								variant="outlined"
+								type="submit"
+								className={classes.root}
+							>
+								Submit
+							</Button>
+						</Fragment>
+					) : (
+						<TextField
+							required
+							id="standard-required"
+							label="Task"
+							defaultValue={data.task}
+						/>
+					)}
+				</form>
 			</div>
 		</Modal>
 	);

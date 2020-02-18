@@ -24,6 +24,7 @@ function Chart({ data, edit }) {
   const [objectivesDeleteList, setObjectivesDeleteList] = useState([]);
   const [tasksDeleteList, setTasksDeleteList] = useState([]);
   const [editFormOpen, setEditFormOpen] = useState(false);
+  const [originalObjective, setOriginalObjective] = useState(null);
   useEffect(() => {
     d3.select("svg")
       .selectAll("*")
@@ -125,7 +126,7 @@ function Chart({ data, edit }) {
       setPopupEl(null);
     }
   };
-
+  
   return (
     <Fragment>
       <svg id="svg" />
@@ -139,6 +140,7 @@ function Chart({ data, edit }) {
           edit: () => {
             setEditFormOpen(true);
             setPopupEl(null);
+            setOriginalObjective(editData.objective);
           }
         }}
       />
@@ -146,6 +148,32 @@ function Chart({ data, edit }) {
         data={editData}
         open={editFormOpen}
         handleClose={() => setEditFormOpen(false)}
+        handleInputChange={{
+          objective: e => {
+            setEditData({
+              ...editData,
+              objective: e.target.value
+            });
+          }
+        }}
+        handleSubmit={{
+          objective: () => {
+            // debugger;
+            const i = objectives.map(o => o.objective).indexOf(originalObjective);
+            editData.updated = true;
+            const currObjectives = [...objectives];
+            currObjectives[i].objective=editData.objective
+            const currTasks = [...tasks];
+            currTasks.forEach(task => {
+              if (task.objective === originalObjective)
+                task.objective = editData.objective;
+            });
+            setTasks(currTasks);
+            setObjectives(currObjectives);
+            setEditFormOpen(false);
+            setOriginalObjective(null);            
+          }
+        }}
       />
     </Fragment>
   );
