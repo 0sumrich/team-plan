@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment } from "react";
 import draw from "../helper/draw";
 import Popup from "./popup";
 import EditForm from "./editForm";
+import UpdateButtons from "./updateButtons";
 import * as d3 from "d3";
 
 function darker(col) {
@@ -126,9 +127,40 @@ function Chart({ data, edit }) {
       setPopupEl(null);
     }
   };
-  console.log(tasks.filter(o => o.updated===true))
+
+  const getUpdated = arr => arr.filter(o => o.updated === true);
+  const getNew = arr => arr.filter(o => o.isNew === true);
+  const clearUpdated = arr => {
+    arr.forEach(el => {
+      if (el.updated) {
+        delete el.updated;
+      }
+      if (el.isNew) {
+        delete el.isNew;
+      }
+    });
+    return arr;
+  };
   return (
     <Fragment>
+      <UpdateButtons
+        updatedTasks={getUpdated(tasks)}
+        newTasks={getNew(tasks)}
+        deletedTasks={tasksDeleteList}
+        updatedObjectives={getUpdated(objectives)}
+        newObjectives={getNew(objectives)}
+        deletedObjectives={objectivesDeleteList}
+        handleClick={() => {
+          setObjectivesDeleteList([]);
+          setTasksDeleteList([]);
+          const newTasks = clearUpdated(tasks);
+          const newObjectives = clearUpdated(objectives);
+          debugger;
+          setTasks(newTasks);
+          setObjectives(newObjectives);
+        }}
+        edit={edit}
+      />
       <svg id="svg" />
       <Popup
         el={popupEl}
@@ -169,7 +201,7 @@ function Chart({ data, edit }) {
               .indexOf(originalObjective);
             const currObjectives = [...objectives];
             currObjectives[i].objective = editData.objective;
-            currObjectives[i].updated = true
+            currObjectives[i].updated = true;
             const currTasks = [...tasks];
             currTasks.forEach(task => {
               if (task.objective === originalObjective)
@@ -180,7 +212,7 @@ function Chart({ data, edit }) {
             setEditFormOpen(false);
             setOriginalObjective(null);
           },
-          task: () => {            
+          task: () => {
             const currTasks = [...tasks];
             const i = currTasks.map(o => o.id).indexOf(editData.id);
             currTasks[i].task = editData.task;

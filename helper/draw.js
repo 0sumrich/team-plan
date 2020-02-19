@@ -16,7 +16,7 @@ function draw(data) {
   const { tasks, objectives, values } = data;
   const valuesCircles = createCircles(values, valuesRadius);
   let svg = d3
-    .select("svg")
+    .select("#svg")
     .attr("width", svgWidth)
     .attr("height", svgHeight)
     //.call(responsify)
