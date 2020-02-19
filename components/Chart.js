@@ -155,7 +155,6 @@ function Chart({ data, edit }) {
           setTasksDeleteList([]);
           const newTasks = clearUpdated(tasks);
           const newObjectives = clearUpdated(objectives);
-          debugger;
           setTasks(newTasks);
           setObjectives(newObjectives);
         }}

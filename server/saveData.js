@@ -1,4 +1,26 @@
 const Database = require("sqlite-async");
+const path = require("path");
+
+async function updateTasks(arr, db) {
+	const taskKeys = ["id", "task", "team", "objective", "complete"];
+	const sql = `
+		UPDATE tasks
+		SET task = $task,
+		complete = $complete
+		where id=$id
+	`;
+	for (let i = 0; i < arr.length; i++) {
+		const taskO = arr[i];
+		try {
+			const { task, complete, id } = taskO;
+			await db.run(sql, [task, complete, id]);
+		} catch (e) {
+			console.e;
+			continue;
+		}
+	}
+	return db;
+}
 
 async function saveData({
 	updatedTasks,
@@ -10,7 +32,14 @@ async function saveData({
 }) {
 	const db = await Database.open("./.data/main.db");
 	const taskKeys = ["id", "task", "team", "objective", "complete"];
-	return null;
+	if (updatedTasks.length > 0) {
+		const taskRes = await updateTasks(updatedTasks, db);
+	}
+	const tasks = await db.all("select * from tasks;");
+	console.log(tasks);
+	return {
+		tasks: tasks
+	};
 }
 
-module.exports = getInitData;
+module.exports = saveData;
