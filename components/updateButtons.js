@@ -40,8 +40,8 @@ function updateButtons({
 
 
 	const saveClick = () => {
-		both()
 		save()
+		both()
 	}
 
 	return (
