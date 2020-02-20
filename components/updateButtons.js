@@ -24,6 +24,7 @@ function updateButtons({
 		return null;
 	}
 	const classes = useStyles();
+	const {both,save} = handleClick;
 	const Btn = ({ handleClick, icon, children }) => (
 		<Button
 			variant="outlined"
@@ -36,30 +37,12 @@ function updateButtons({
 		</Button>
 	);
 
-	const saveClick = async () => {
-		handleClick();
-		const baseUrl = process.env.API_URL;
-		const res = await fetch(baseUrl + "save", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				updatedTasks,
-				newTasks,
-				deletedTasks,
-				updatedObjectives,
-				newObjectives,
-				deletedObjectives
-			})
-		});
-		const data = await res.json();
-		console.log(data);
-	};
 
-	// fetch("/addTask", {
-	// 			method: "POST",
-	// 			headers: { "Content-Type": "application/json" },
-	// 			body: JSON.stringify(body)
-	// 		});
+
+	const saveClick = () => {
+		both()
+		save()
+	}
 
 	return (
 		<div>

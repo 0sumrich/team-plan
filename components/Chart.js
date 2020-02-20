@@ -141,22 +141,51 @@ function Chart({ data, edit }) {
     });
     return arr;
   };
+
+  const initData = async () => {
+    const res = await fetch(process.env.API_URL + "main");
+    const data = await res.json();
+    return { data };
+  };
+
   return (
     <Fragment>
       <UpdateButtons
-        updatedTasks={getUpdated(tasks)}
-        newTasks={getNew(tasks)}
-        deletedTasks={tasksDeleteList}
-        updatedObjectives={getUpdated(objectives)}
-        newObjectives={getNew(objectives)}
-        deletedObjectives={objectivesDeleteList}
-        handleClick={() => {
-          setObjectivesDeleteList([]);
-          setTasksDeleteList([]);
-          const newTasks = clearUpdated(tasks);
-          const newObjectives = clearUpdated(objectives);
-          setTasks(newTasks);
-          setObjectives(newObjectives);
+        handleClick={{
+          both: () => {
+            setObjectivesDeleteList([]);
+            setTasksDeleteList([]);
+            const newTasks = clearUpdated(tasks);
+            const newObjectives = clearUpdated(objectives);
+            setTasks(newTasks);
+            setObjectives(newObjectives);
+          },
+          save: async () => {
+            const baseUrl = process.env.API_URL;
+            const updatedTasks = getUpdated(tasks);
+            const newTasks = getNew(tasks);
+            const deletedTasks = tasksDeleteList;
+            const updatedObjectives = getUpdated(objectives);
+            const newObjectives = getNew(objectives);
+            const deletedObjectives = objectivesDeleteList;
+            const res = await fetch(baseUrl + "save", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                updatedTasks,
+                newTasks,
+                deletedTasks,
+                updatedObjectives,
+                newObjectives,
+                deletedObjectives
+              })
+            });
+            if (res.ok) {
+              alert("saved to database");
+            } else {
+              alert("not saved!");
+            }
+          }
         }}
         edit={edit}
       />

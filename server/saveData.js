@@ -36,9 +36,8 @@ async function saveData({
 		const taskRes = await updateTasks(updatedTasks, db);
 	}
 	const tasks = await db.all("select * from tasks;");
-	console.log(tasks);
 	return {
-		tasks: tasks
+		tasks
 	};
 }
 

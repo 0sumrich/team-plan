@@ -10,7 +10,6 @@ import sortData from "../helper/sortData";
 
 function Edit(props) {
 	const [data, setData] = useState(props.data)
-	const getTargetData = e => JSON.parse(e.target.dataset.task)
 
 	return (
 		<Fragment>
