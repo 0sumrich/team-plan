@@ -30,11 +30,74 @@ async function insertTasks(arr, db) {
 	for (let i = 0; i < arr.length; i++) {
 		const taskO = arr[i];
 		try {
-			const { task, team, objective, complete} = taskO;
-			const teamId = await db.all(`select id from teams where team=$team`, [team])
-			const objId = await db.all(`select id from objectives where objective=$objective`, [objective])
-			const params = [task, teamId[0].id, objId[0].id, complete]
-			const row = await db.run(sql, params)			
+			const { task, team, objective, complete } = taskO;
+			const teamId = await db.all(
+				`select id from teams where team=$team`,
+				[team]
+			);
+			const objId = await db.all(
+				`select id from objectives where objective=$objective`,
+				[objective]
+			);
+			const params = [task, teamId[0].id, objId[0].id, complete];
+			const row = await db.run(sql, params);
+		} catch (e) {
+			console.e;
+			continue;
+		}
+	}
+	return db;
+}
+
+async function deleteTasks(arr, db) {
+	const sql = `
+	DELETE FROM tasks WHERE id=$id
+	`;
+	for (let i = 0; i < arr.length; i++) {
+		const taskO = arr[i];
+		try {
+			const { id } = taskO;
+			const params = [id];
+			const row = await db.run(sql, params);
+		} catch (e) {
+			console.e;
+			continue;
+		}
+	}
+	return db;
+}
+
+async function updateObjectives(arr, db) {
+	const sql = `
+	UPDATE objectives
+		SET objective = $objective		
+		where id=$id
+	`;
+	for (let i = 0; i < arr.length; i++) {
+		const taskO = arr[i];
+		try {
+			const { id, objective } = taskO;
+			const params = [objective, id];
+			const row = await db.run(sql, params);
+		} catch (e) {
+			console.e;
+			continue;
+		}
+	}
+	return db;
+}
+
+async function deleteObjectives(arr, db) {
+	const sql = `
+	DELETE from objectives
+	where id=$id
+	`;
+	for (let i = 0; i < arr.length; i++) {
+		const taskO = arr[i];
+		try {
+			const { id } = taskO;
+			const params = [id];
+			const row = await db.run(sql, params);
 		} catch (e) {
 			console.e;
 			continue;
@@ -55,16 +118,21 @@ async function saveData({
 	// const db = await Database.open(path.join(__dirname, '..', './.data/main.db'))
 	const taskKeys = ["id", "task", "team", "objective", "complete"];
 	if (updatedTasks.length > 0) {
-		const taskRes = await updateTasks(updatedTasks, db);
+		await updateTasks(updatedTasks, db);
 	}
-	debugger;
 	if (newTasks.length > 0) {
-		const newTasksRes = await insertTasks(newTasks, db);
+		await insertTasks(newTasks, db);
 	}
-	const tasks = await db.all("select * from tasks;");
-	return {
-		tasks
-	};
+	if (deletedTasks.length > 0) {
+		await deleteTasks(deletedTasks, db);
+	}
+	if (updatedObjectives.length > 0) {
+		await updateObjectives(updatedObjectives, db);
+	}
+	if (deletedObjectives.length > 0) {
+		await deleteObjectives(deletedObjectives, db);
+	}
+	return db;
 }
 
 module.exports = saveData;
