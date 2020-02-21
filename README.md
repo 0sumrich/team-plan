@@ -1,12 +1,12 @@
 # Team Plan - Full Stack Web App
 ## Corporate Imagery
-Team Plan visualised with d3, with actions saved on a mongoose database. MERN stack 
+Team Plan visualised with d3, with actions saved on a sqlite database. NextJS
 
 ### Tech
 * [React] 
 * [Node]
-* [Express]
-* [Mongoose]
+* [Next JS]
+* [Sqlite3]
 * [d3]
 * [save-svg-as-png]
 
@@ -16,7 +16,7 @@ The goal was to create a circular team plan for Barnet Libraries. The service ob
 
 I also needed to be able to export the D3 svg to png for printing - another goal was to print and display in staff areas, so I used [saveAsPng.js](https://github.com/exupero/saveSvgAsPng)
 
-Originally you would just edit it from a csv file and then reupload it manually. Now I've put a mongoDB/mongoose database on the back end, so it's totally editable from the /edit page. It's serverside rendered just because I wanted to figure out how to do that with MERN stack.
+Originally you would just edit it from a csv file and then reupload it manually. A couple of re-writes in to this project now. Now utilising React Materilised UI components for sleek data entry.
 
 The result 
 ![alt text](planisphere-demo.png "Circular Team Plan")
