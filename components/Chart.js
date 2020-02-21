@@ -228,6 +228,12 @@ function Chart({ data, edit }) {
               ...editData,
               task: e.target.value
             });
+          },
+          complete: checked => {            
+            setEditData({
+              ...editData,
+              complete: checked ? 'TRUE' : 'FALSE'
+            });
           }
         }}
         handleSubmit={{

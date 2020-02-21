@@ -1,8 +1,10 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
+import FormGroup from '@material-ui/core/FormGroup';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Complete from "./complete";
 
 function getModalStyle() {
 	const top = 50;
@@ -47,12 +49,13 @@ function EditForm({
 	const classes = useStyles();
 	// getModalStyle is not a pure function, we roll the style only on the first render
 	const [modalStyle] = React.useState(getModalStyle);
-	const type = data.team == "" ? "objective" : "task";	
-	useEffect(() =>{
-		if(open){			
-			document.querySelector('input').focus()
+	const type = data.team == "" ? "objective" : "task";
+	useEffect(() => {
+		if (open) {
+			document.querySelector("input").focus();
 		}
-	})
+	});
+	const toBool = s => s === 'TRUE' ? true : false;
 	return (
 		<Modal
 			disablePortal
@@ -75,12 +78,12 @@ function EditForm({
 						<Fragment>
 							<TextField
 								required
-								fullWidth								
+								fullWidth
 								id="standard-required"
 								label="Objective"
 								defaultValue={data.objective}
 								onChange={handleInputChange.objective}
-							/>
+							/>							
 							<Button
 								variant="outlined"
 								type="submit"
@@ -95,12 +98,13 @@ function EditForm({
 							<p>{`Objective: ${data.objective}`}</p>
 							<TextField
 								required
-								fullWidth								
+								fullWidth
 								id="standard-required"
 								label="Task"
 								defaultValue={data.task}
 								onChange={handleInputChange.task}
 							/>
+							<Complete handleChange={handleInputChange.complete} complete={toBool(data.complete)}/>
 							<Button
 								variant="outlined"
 								type="submit"

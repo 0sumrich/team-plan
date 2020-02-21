@@ -1,12 +1,6 @@
 import React, { Fragment, useState } from "react";
 import fetch from "isomorphic-unfetch";
 import Chart from "../components/Chart";
-import Grid from "../components/Grid";
-import Button from "../components/Button";
-import redraw from "../helper/redraw";
-import clear from "../helper/clear";
-import addObjective from "../helper/addObjective";
-import sortData from "../helper/sortData";
 
 function Edit(props) {
 	const [data, setData] = useState(props.data)
