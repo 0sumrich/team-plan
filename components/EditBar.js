@@ -3,7 +3,7 @@ import Button from "./Button";
 import PreviewButton from "./PreviewButton";
 import DeleteButton from "./DeleteButton";
 import Radio from "./Radio";
-import Complete from "./complete";
+import complete from "./complete";
 import toBool from "../helper/toBool";
 
 function EditBar(props) {
