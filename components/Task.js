@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Button from "./Button";
 import EditBar from "./EditBar";
 
@@ -8,19 +8,21 @@ const Task = ({
 	handlePreviewClick,
 	handleCompleteChange,
 	handleDeleteClick,
-	handleTextChange
+	handleTextChange,
+	objective
 }) => {
-	const edit = task.data.edit;
+	const [edit, setEdit] = useState(false)
+	// const edit = task.data.edit;
 	const res = edit ? (
 		<input
 			type="text"
 			className="task"
 			onChange={handleTextChange}
-			id={`input${task.data._id}`}
-			value={task.data.text}
+			id={`input${task.data.id}`}
+			value={objective ? task.data.objective : task.data.task}
 		/>
 	) : (
-		<p style={{ fontSize: "0.75em" }}>{task.data.text}</p>
+		<p style={{ fontSize: "0.75em" }}>{objective ? task.data.objective : task.data.task}</p>
 	);
 	const button = edit ? (
 		<EditBar
@@ -31,8 +33,9 @@ const Task = ({
 		/>
 	) : (
 		<Button
-			id={`button${task.data._id}`}
-			handleClick={handleEditClick}
+			id={`button${task.data.id}`}
+			data={task.data}
+			handleClick={() => setEdit(!edit)}
 			form
 		>
 			Edit

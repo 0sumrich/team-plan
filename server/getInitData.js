@@ -1,17 +1,22 @@
-// import csv from "../models/csv";
-// import Value from "../models/Values";
-//import fetch from 'node-fetch';
-//import sortInitData from "./sortInitData";
-
-const csv = require('./models/csv')
-const Value = require('./models/Values')
-const sortInitData = require('./helper/sortInitData')
+const Database = require("sqlite-async");
 
 async function getInitData() {
-	const csvQuery = await csv.find().exec();
-	const ValuesQuery = await Value.find().exec();
-	const res = {csv: sortInitData(csvQuery), values: ValuesQuery}
-	return res
+	const db = await Database.open("./.data/main.db");
+	const data = await db.all("select * from tasks;");
+	const sql = `
+		select tasks.id as id, 
+		tasks.task as task,
+		teams.team as team,
+		objectives.objective,
+		tasks.complete 
+		from tasks
+		inner join teams on tasks.team = teams.id
+		inner join objectives on tasks.objective = objectives.id;
+	`;
+	const tasks = await db.all(sql);
+	const objectives = await db.all("select * from objectives;");
+	const values = await db.all("select * from library_values;");
+	return { tasks: tasks, objectives: objectives, values: values };
 }
 
 module.exports = getInitData;

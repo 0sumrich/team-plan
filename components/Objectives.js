@@ -16,19 +16,20 @@ const Objectives = ({
 	handleAddClick
 }) =>
 	objectives.map((o, i) => {
-		const objective = o.text;
-		const filtered = data.filter(k => k.data.objective == objective);
+		const objective = o.objective;
+		const filtered = data.filter(k => k.data.objective == objective && k.data.team.length>0);
+
 		if (isObjectivesList) {
 			return (
-				<React.Fragment key={"task" + i}>
+				<React.Fragment key={"objective" + i}>
 					<div>
 						<Task
 							task={data[i]}
-							handleEditClick={handleEditClick}
 							handlePreviewClick={handlePreviewClick}
 							handleCompleteChange={handleCompleteChange}
 							handleDeleteClick={handleDeleteClick}
 							handleTextChange={handleTextChange}
+							objective
 						/>
 					</div>
 					<style jsx>{`
@@ -39,9 +40,9 @@ const Objectives = ({
 					`}</style>
 				</React.Fragment>
 			);
-		} else {
+		} else {			
 			return (
-				<React.Fragment key={"objective" + i}>
+				<React.Fragment key={"task" + i}>
 					<div className="o-container valign-wrapper">
 						<p>{objective}</p>
 						<AddButton

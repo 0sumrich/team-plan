@@ -1,7 +1,7 @@
-import * as d3 from 'd3';
-import createCircles from './createCircles';
-import sortData from './sortData';
-import build from './build';
+import * as d3 from "d3";
+import createCircles from "./createCircles";
+import sortData from "./sortData";
+import build from "./build";
 import {
   valuesRadius,
   svgWidth,
@@ -10,98 +10,118 @@ import {
   translateY,
   margin,
   scheme
-} from '../constants/constants';
-  
-function draw(valuesArr, csv) {
-  const values = createCircles(valuesArr, valuesRadius);
-  
+} from "../constants/constants";
+
+function draw(data) {
+  const { tasks, objectives, values } = data;
+  const valuesCircles = createCircles(values, valuesRadius);
   let svg = d3
-  .select("svg")
-  .attr("width", svgWidth)
-  .attr("height", svgHeight)
-  //.call(responsify)
-  .call(d3.zoom().on("zoom", function () {
-    svg.attr("transform", d3.event.transform)
-   }))
-  .append("g")
-  .attr("transform", "translate(" + translateX  + "," + translateY + ")");
+    .select("#svg")
+    .attr("width", svgWidth)
+    .attr("height", svgHeight)    
+    .call(
+      d3.zoom().on("zoom", function() {
+        svg.attr("transform", d3.event.transform);
+      })
+    )
+    .append("g")
+    .attr("transform", "translate(" + translateX + "," + translateY + ")");
 
   svg
-  .append('text')
-  .attr('y', (svgHeight/-2)+margin.top/2-10)
-  .attr('font-size', '1.25em')
-  .attr('text-anchor', 'middle')
-  .text("Libraries' Team Plan 2018-19")
-  
+    .append("text")
+    .attr("y", svgHeight / -2 + margin.top / 2 - 10)
+    .attr("font-size", "1.25em")
+    .attr("text-anchor", "middle")
+    .text(`Libraries' Team Plan ${process.env.YEAR}`);
+
   //draw values circles
-  let valuesG = svg.append('g')
-    .attr("transform", "translate("+ valuesRadius/-1  + "," + valuesRadius/-1 + ")");
+  let valuesG = svg
+    .append("g")
+    .attr(
+      "transform",
+      "translate(" + valuesRadius / -1 + "," + valuesRadius / -1 + ")"
+    );
 
   const smallCirclesRadius = 25;
 
   valuesG
-  .append('circle')
-  .attr('r', valuesRadius)
-  .attr('cx', valuesRadius)
-  .attr('cy', valuesRadius)
-  .attr('fill', 'none')
-  .attr('stroke', '#e5e5e5')
-  .attr('stroke-width', 8)
+    .append("circle")
+    .attr("r", valuesRadius)
+    .attr("cx", valuesRadius)
+    .attr("cy", valuesRadius)
+    .attr("fill", "none")
+    .attr("stroke", "#e5e5e5")
+    .attr("stroke-width", 8);
 
   valuesG
-    .selectAll('.valueCirc')
-    .data(values)
-    .enter().append('circle')
-    .attr('class', 'valueCirc')
-    .attr('r', smallCirclesRadius)
-    .attr('cx', d => d.x)
-    .attr('cy', d => d.y)
+    .selectAll(".valueCirc")
+    .data(valuesCircles)
+    .enter()
+    .append("circle")
+    .attr("class", "valueCirc")
+    .attr("r", smallCirclesRadius)
+    .attr("cx", d => d.x)
+    .attr("cy", d => d.y)
     //.attr('stroke', 'black')
-    .attr('stroke-width', 0.5)
-    .attr('fill', scheme[0])
-
+    .attr("stroke-width", 0.5)
+    .attr("fill", scheme[0]);
 
   valuesG
-  .selectAll('.valueTxt')
-  .data(values)
-  .enter()
-  .append('text')
-  .attr('class', 'valueTxt')
-  .attr('x', d=> d.x)
-  .attr('y', d=>d.y)
-  .attr('text-anchor', 'middle')
-  .attr('font-size', '0.4em')
-  .attr('id', d=>d.id)
-  .text(d => d.value)
-  .each(function(d){
-    let text = d3.select(this),
-        words = text.text().split(" ").reverse(),
+    .selectAll(".valueTxt")
+    .data(valuesCircles)
+    .enter()
+    .append("text")
+    .attr("class", "valueTxt")
+    .attr("x", d => d.x)
+    .attr("y", d => d.y)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "0.4em")
+    .attr("id", d => d.id)
+    .text(d => d.value)
+    .each(function(d) {
+      let text = d3.select(this),
+        words = text
+          .text()
+          .split(" ")
+          .reverse(),
         lineY = 0,
         y = d.y,
         x = d.x,
-        line=[],
+        line = [],
         word,
         lineNumber = 1,
-        lineHeight= 1.1,
-        w = 2*Math.sqrt(Math.pow(smallCirclesRadius, 2)- Math.pow(lineY, 2))-7,
-        tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", lineY + "em");
-    while(word=words.pop()) {
-      line.push(word);
-      tspan.text(line.join(" "));
+        lineHeight = 1.1,
+        w =
+          2 * Math.sqrt(Math.pow(smallCirclesRadius, 2) - Math.pow(lineY, 2)) -
+          7,
+        tspan = text
+          .text(null)
+          .append("tspan")
+          .attr("x", x)
+          .attr("y", y)
+          .attr("dy", lineY + "em");
+      while ((word = words.pop())) {
+        line.push(word);
+        tspan.text(line.join(" "));
         if (tspan.node().getComputedTextLength() > w) {
           line.pop();
           tspan.text(line.join(" "));
           line = [word];
-          lineY+=lineHeight;
-          lineNumber++
-          tspan = text.append("tspan").attr("x", x).attr("y", y).attr('dy', lineY + "em").text(word);
+          lineY += lineHeight;
+          lineNumber++;
+          tspan = text
+            .append("tspan")
+            .attr("x", x)
+            .attr("y", y)
+            .attr("dy", lineY + "em")
+            .text(word);
         }
-    }
-    const height = text.node().getBBox().height-12;
-    text.attr('transform', 'translate(0, ' + (height/2)/-1 +' )');
-  })
-  const data = sortData(csv);
-  build(data, svg);
+      }
+      const height = text.node().getBBox().height - 12;
+      text.attr("transform", "translate(0, " + height / 2 / -1 + " )");
+    });
+  const buildData = sortData(objectives, tasks);
+  build(buildData, svg);
 }
 
 export default draw;

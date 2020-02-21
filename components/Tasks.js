@@ -4,7 +4,6 @@ import Task from "./Task";
 const Tasks = ({
 	arr,
 	handleChange,
-	handleEditClick,
 	handlePreviewClick,
 	handleCompleteChange,
 	handleTextChange,
@@ -15,8 +14,7 @@ const Tasks = ({
 			<React.Fragment key={"task" + i}>
 				<div>
 					<Task
-						task={task}
-						handleEditClick={handleEditClick}
+						task={task}						
 						handlePreviewClick={handlePreviewClick}
 						handleCompleteChange={handleCompleteChange}
 						handleTextChange={handleTextChange}

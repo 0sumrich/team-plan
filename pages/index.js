@@ -7,10 +7,10 @@ function Home({ data }) {
 }
 
 Home.getInitialProps = async ({ req }) => {
-	const baseUrl = req ? `${req.protocol}://${req.get("Host")}` : "";
-	const res = await fetch(baseUrl + "/api");
-	const json = await res.json();
-	return { data: json };
+	const baseUrl = process.env.API_URL;
+	const res = await fetch(baseUrl + "main");
+	const data = await res.json();
+	return {data}
 };
 
 export default Home;
