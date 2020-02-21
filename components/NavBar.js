@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 // import NavTab from "./NavTab";
 import Menu from "@material-ui/core/Menu";
@@ -38,9 +38,9 @@ const useStyles = makeStyles(theme => {
   };
 });
 
-function exportPng() {
-  return saveSvgAsPng(document.getElementById("svg"), "diagram.png", {
-    scale: 8,
+function exportPng() {  
+  return saveSvgAsPng(document.getElementById("svg"), `team plan ${process.env.YEAR}.png`, {
+    scale: 6,
     backgroundColor: "white"
   });
 }
@@ -69,7 +69,11 @@ const NavBar = () => {
           <NavTab to="/">Home</NavTab>
           <NavTab to="/edit">Edit</NavTab>
           <Tooltip title="Download as PNG" aria-label="download">
-            <IconButton aria-label="download" className={classes.export}>
+            <IconButton
+              aria-label="download"
+              className={classes.export}
+              onClick={exportPng}
+            >
               <SaveAltIcon />
             </IconButton>
           </Tooltip>
