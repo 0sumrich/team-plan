@@ -32,7 +32,7 @@ function draw(data) {
     .attr("y", svgHeight / -2 + margin.top / 2 - 10)
     .attr("font-size", "1.25em")
     .attr("text-anchor", "middle")
-    .text("Libraries' Team Plan 2018-19");
+    .text(`Libraries' Team Plan ${process.env.YEAR}`);
 
   //draw values circles
   let valuesG = svg

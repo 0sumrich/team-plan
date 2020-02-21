@@ -229,10 +229,10 @@ function Chart({ data, edit }) {
               task: e.target.value
             });
           },
-          complete: checked => {            
+          complete: checked => {
             setEditData({
               ...editData,
-              complete: checked ? 'TRUE' : 'FALSE'
+              complete: checked ? "TRUE" : "FALSE"
             });
           }
         }}

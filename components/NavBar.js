@@ -7,6 +7,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { saveSvgAsPng } from "save-svg-as-png";
+import IconButton from "@material-ui/core/IconButton";
+import SaveAltIcon from "@material-ui/icons/SaveAlt";
+import Tooltip from "@material-ui/core/Tooltip";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Tabs from "@material-ui/core/Tabs";
@@ -19,7 +22,8 @@ const useStyles = makeStyles(theme => {
       flexGrow: 1
     },
     ul: {
-      listStyleType: "none"
+      listStyleType: "none",
+      margin: 0
     },
     li: {
       display: "inline",
@@ -27,6 +31,9 @@ const useStyles = makeStyles(theme => {
     },
     active: {
       background: theme.palette.grey[200]
+    },
+    export: {
+      color: theme.palette.info.main
     }
   };
 });
@@ -61,6 +68,11 @@ const NavBar = () => {
         <ul className={classes.ul}>
           <NavTab to="/">Home</NavTab>
           <NavTab to="/edit">Edit</NavTab>
+          <Tooltip title="Download as PNG" aria-label="download">
+            <IconButton aria-label="download" className={classes.export}>
+              <SaveAltIcon />
+            </IconButton>
+          </Tooltip>
         </ul>
       </AppBar>
     </div>

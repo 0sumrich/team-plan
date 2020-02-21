@@ -16,7 +16,8 @@ Edit.getInitialProps = async ({ req }) => {
 	const baseUrl = process.env.API_URL;
 	const res = await fetch(baseUrl + "main");
 	const data = await res.json();
-	return { data };
+	const year = process.env.YEAR
+	return { data, year };
 };
 
 export default Edit;

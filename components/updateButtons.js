@@ -1,8 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
+import UndoIcon from '@material-ui/icons/Undo';
 
 const useStyles = makeStyles(theme => ({
 	btn: {
@@ -27,11 +27,11 @@ function updateButtons({
 	const { both, save, discard } = handleClick;
 	const Btn = ({ handleClick, icon, children }) => (
 		<Button
-			variant="outlined"
-			color="primary"
+			variant="outlined"			
 			size="large"
 			className={classes.btn}
 			onClick={handleClick}
+			startIcon={icon}
 		>
 			{children}
 		</Button>
@@ -49,8 +49,8 @@ function updateButtons({
 
 	return (
 		<div>
-			<Btn handleClick={saveClick}>Save</Btn>
-			<Btn handleClick={discardClick}>Discard</Btn>
+			<Btn handleClick={saveClick} icon={<SaveIcon />}>Save</Btn>
+			<Btn handleClick={discardClick} icon={<UndoIcon />}>Undo</Btn>
 		</div>
 	);
 }
