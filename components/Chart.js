@@ -27,7 +27,7 @@ function Chart({ data, edit }) {
   const [editFormOpen, setEditFormOpen] = useState(false);
   const [originalObjective, setOriginalObjective] = useState(null);
   useEffect(() => {
-    d3.select("svg")
+    d3.select("#svg")
       .selectAll("*")
       .remove();
 
@@ -142,10 +142,10 @@ function Chart({ data, edit }) {
     return arr;
   };
 
-  const initData = async () => {
+  const getData = async () => {
     const res = await fetch(process.env.API_URL + "main");
     const data = await res.json();
-    return { data };
+    return data;
   };
 
   return (
@@ -181,10 +181,18 @@ function Chart({ data, edit }) {
               })
             });
             if (res.ok) {
-              alert("saved to database");
+              const freshData = await getData();
+              setTasks(freshData.tasks);
+              setObjectives(freshData.objectives);
+              alert("saved");
             } else {
               alert("not saved!");
             }
+          },
+          discard: async () => {
+            const freshData = await getData();
+            setTasks(freshData.tasks);
+            setObjectives(freshData.objectives);
           }
         }}
         edit={edit}

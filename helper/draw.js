@@ -18,8 +18,7 @@ function draw(data) {
   let svg = d3
     .select("#svg")
     .attr("width", svgWidth)
-    .attr("height", svgHeight)
-    //.call(responsify)
+    .attr("height", svgHeight)    
     .call(
       d3.zoom().on("zoom", function() {
         svg.attr("transform", d3.event.transform);

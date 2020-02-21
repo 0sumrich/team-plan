@@ -90,13 +90,13 @@ async function updateObjectives(arr, db) {
 async function deleteObjectives(arr, db) {
 	const sql = `
 	DELETE from objectives
-	where id=$id
+	where objective=$objective
 	`;
 	for (let i = 0; i < arr.length; i++) {
 		const taskO = arr[i];
 		try {
-			const { id } = taskO;
-			const params = [id];
+			const { objective } = taskO;
+			const params = [objective];
 			const row = await db.run(sql, params);
 		} catch (e) {
 			console.e;

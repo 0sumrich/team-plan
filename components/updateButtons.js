@@ -24,7 +24,7 @@ function updateButtons({
 		return null;
 	}
 	const classes = useStyles();
-	const {both,save} = handleClick;
+	const { both, save, discard } = handleClick;
 	const Btn = ({ handleClick, icon, children }) => (
 		<Button
 			variant="outlined"
@@ -37,17 +37,20 @@ function updateButtons({
 		</Button>
 	);
 
-
-
 	const saveClick = () => {
-		save()
-		both()
-	}
+		save();
+		both();
+	};
+
+	const discardClick = () => {
+		discard();
+		both();
+	};
 
 	return (
 		<div>
 			<Btn handleClick={saveClick}>Save</Btn>
-			<Btn handleClick={() => console.log("discard")}>Discard</Btn>
+			<Btn handleClick={discardClick}>Discard</Btn>
 		</div>
 	);
 }
