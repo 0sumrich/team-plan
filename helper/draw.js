@@ -12,6 +12,8 @@ import {
   scheme
 } from "../constants/constants";
 
+const YEAR = process.env.YEAR
+
 function draw(data) {
   const { tasks, objectives, values } = data;
   const valuesCircles = createCircles(values, valuesRadius);
@@ -32,7 +34,7 @@ function draw(data) {
     .attr("y", svgHeight / -2 + margin.top / 2 - 10)
     .attr("font-size", "1.25em")
     .attr("text-anchor", "middle")
-    .text(`Libraries' Team Plan ${process.env.YEAR}`);
+    .text(`Libraries' Team Plan ${YEAR}`);
 
   //draw values circles
   let valuesG = svg
