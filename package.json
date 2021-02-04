@@ -28,5 +28,8 @@
   },
   "repository": "https://github.com/0sumrich/team-plan",
   "author": "Richard Lynch <lynchardrich@gmail.com>",
-  "private": false
+  "private": false,
+  "engines": {
+    "node": "12"
+  }
 }
