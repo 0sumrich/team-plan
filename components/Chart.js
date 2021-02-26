@@ -60,9 +60,9 @@ function Chart({ data, edit }) {
               .rgb()
           );
         })
-        .on("click", function(e) {
+        .on("click", function(e, d) { 
           setPopupEl(d3.select(this).node());
-          setEditData(e.data);
+          setEditData(d.data);
         });
     }
   });

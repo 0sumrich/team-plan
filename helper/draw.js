@@ -22,8 +22,8 @@ function draw(data) {
     .attr("width", svgWidth)
     .attr("height", svgHeight)    
     .call(
-      d3.zoom().on("zoom", function() {
-        svg.attr("transform", d3.event.transform);
+      d3.zoom().on("zoom", function({transform}) {
+        svg.attr("transform", transform);
       })
     )
     .append("g")
