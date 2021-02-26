@@ -10,26 +10,23 @@
     "start": "next start"
   },
   "dependencies": {
-    "@material-ui/core": "^4.9.2",
-    "@material-ui/icons": "^4.9.1",
-    "clsx": "^1.1.0",
-    "d3": "^5.15.0",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "clsx": "^1.1.1",
+    "d3": "^6.5.0",
     "dotenv": "^8.2.0",
-    "isomorphic-unfetch": "^3.0.0",
-    "next": "^9.2.1",
-    "node-fetch": "^2.2.0",
+    "isomorphic-unfetch": "^3.1.0",
+    "next": "^10.0.7",
+    "node-fetch": "^2.6.1",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-router-dom": "^5.1.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "save-svg-as-png": "^1.4.6",
-    "sqlite-async": "^1.0.12",
-    "styled-jsx": "^3.1.0"
+    "sqlite-async": "^1.1.1",
+    "styled-jsx": "^3.4.4"
   },
   "repository": "https://github.com/0sumrich/team-plan",
   "author": "Richard Lynch <lynchardrich@gmail.com>",
-  "private": false,
-  "engines": {
-    "node": "12"
-  }
+  "private": false
 }
