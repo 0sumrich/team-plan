@@ -11,7 +11,8 @@ async function getInitData() {
 		tasks.complete 
 		from tasks
 		inner join teams on tasks.team = teams.id
-		inner join objectives on tasks.objective = objectives.id;
+		inner join objectives on tasks.objective = objectives.id
+		order by teams.id;
 	`;
 	const tasks = await db.all(sql);
 	const objectives = await db.all("select * from objectives;");
