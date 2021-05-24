@@ -1,15 +1,36 @@
-task,Progress,objective,team,team_id,objective_id,seg_count,seg_count_max
-Identify efficiencies in current budgets - Review grounds maintenance/ trade waste costs and revise requirements down ,Open,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,6,22
-Submit inflation bid,Open ,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,7,22
-Review use of waste and sani bins by tenants and billing arrangements,Open ,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,8,22
-Booking Live system for online booking and payment for events (bypassing My Account),started ,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,9,22
-Ensure library needs are reflected on the Infrastructure Development Plan and develop closer links with the Grwoth Team,started,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,10,22
-Link in to corporate ‘Live/shop local’ marketing campaigns,started ,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,12,22
-Develop Technology forward plan,Open,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,13,22
-Affected staff have appropriate settled status,Open,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,16,22
-Develop a Festival of Stories bid to ACE for 2022,Open,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,11,25
-Meet with Neil Marlow to discuss how libraries can better support schools and recovery,Open ,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,13,25
-Investigate adding lunch element to SRC 2021,started,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,14,25
-Develop a Festival of Stories bid to ACE for 2022,Open,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,20,25
-Meet with Neil Marlow to discuss how libraries can better support schools and recovery,Open ,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,21,25
-Investigate adding lunch element to SRC 2021,started,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,22,25
+,task,Progress,objective,team,team_id,objective_id,seg_count,seg_count_max
+1,"Here to Help newly named ‘Discover Your Library’ to support customers to come back; induction sessions for new members, outreach visits to promote services",Open,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,2,22
+3,Develop online enquiries service,completed,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,4,22
+5,Identify efficiencies in current budgets - Review grounds maintenance/ trade waste costs and revise requirements down ,Open,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,6,22
+6,Submit inflation bid,Open ,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,7,22
+7,Review use of waste and sani bins by tenants and billing arrangements,Open ,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,8,22
+8,Booking Live system for online booking and payment for events (bypassing My Account),started ,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,9,22
+9,Ensure library needs are reflected on the Infrastructure Development Plan and develop closer links with the Grwoth Team,started,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,10,22
+11,Link in to corporate ‘Live/shop local’ marketing campaigns,started ,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,12,22
+12,Develop Technology forward plan,Open,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,13,22
+13,Establish Book Chat/ staff engagement events,completed,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,14,22
+14,"Contact main suppliers to ensure plans in place for no deal Brexit (Capita Libraries, media suppliers)",completed,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,15,22
+15,Affected staff have appropriate settled status,Open,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,16,22
+18,Establish Book Chat/ staff engagement events,completed,Mitigate the risks posed by the pandemic to the service,Management Team,9,3,19,22
+24,Develop online enquiries service,completed,Mitigate the risks posed by the pandemic to the service,Service Development Team,8,3,3,5
+28,Use HLS/MOB to extend reach of S&C.,completed,Mitigate the risks posed by the pandemic to the service,Operations,7,3,2,8
+31,"Here to Help newly named ‘Discover Your Library’ to support customers to come back; induction sessions for new members, outreach visits to promote services",Open,Mitigate the risks posed by the pandemic to the service,Operations,7,3,5,8
+36,Revise room booking fees and charges,completed,Mitigate the risks posed by the pandemic to the service,Pillar 6,6,3,2,5
+43,"Here to Help newly named ‘Discover Your Library’ to support customers to come back; induction sessions for new members, outreach visits to promote services",Open,Mitigate the risks posed by the pandemic to the service,Pillar 4,4,3,3,4
+47,"Here to Help newly named ‘Discover Your Library’ to support customers to come back; induction sessions for new members, outreach visits to promote services",Open,Mitigate the risks posed by the pandemic to the service,Pillar 2,2,3,2,4
+86,Funding application for laptop distribution,completed,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,2,25
+87,Develop EY nuture groups,completed,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,3,25
+88,Develop Reading Friends groups,completed,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,4,25
+94,Submit bid to National Sience Week,completed,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,10,25
+95,Develop a Festival of Stories bid to ACE for 2022,Open,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,11,25
+97,Meet with Neil Marlow to discuss how libraries can better support schools and recovery,Open ,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,13,25
+98,Investigate adding lunch element to SRC 2021,started,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,14,25
+101,Reinstate B&SC IT classes at HEN,completed,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,17,25
+104,Develop a Festival of Stories bid to ACE for 2022,Open,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,20,25
+105,Meet with Neil Marlow to discuss how libraries can better support schools and recovery,Open ,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,21,25
+106,Investigate adding lunch element to SRC 2021,started,Respond to the impacts of the pandemic within Barnet,Management Team,9,0,22,25
+110,Develop EY nuture groups,completed,Respond to the impacts of the pandemic within Barnet,Service Development Team,8,0,1,5
+115,Reinstate B&SC IT classes at HEN,completed,Respond to the impacts of the pandemic within Barnet,Operations,7,0,1,10
+117,Introduce remote IT support for customers,completed,Respond to the impacts of the pandemic within Barnet,Operations,7,0,3,10
+118,Develop online conversation cafes,completed,Respond to the impacts of the pandemic within Barnet,Operations,7,0,4,10
+120,Introduce remote IT support for customers,completed,Respond to the impacts of the pandemic within Barnet,Operations,7,0,6,10
